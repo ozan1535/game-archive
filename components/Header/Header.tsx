@@ -3,6 +3,7 @@ import { getHeaderItems } from "./Header.helpers";
 import styles from "./styles.module.scss";
 
 const headerItems = getHeaderItems();
+console.log("sample");
 
 export function Header() {
   return (
