@@ -1,6 +1,112 @@
-.card {
+.Card {
+  margin-top: 2rem;
+  position: relative;
   width: 20.5rem;
-  height: 30rem;
+  height: 25rem;
   border-radius: 1rem;
-  background-color: red;
+  background-color: rgb(16, 55, 99);
+  --borderWidth: 3px;
+  border-radius: var(--borderWidth);
+  display: grid;
+  grid-template-areas:
+    "picture"
+    "info";
+  grid-template-rows: 0.4fr 0.6fr;
+  grid-auto-columns: auto;
+  grid-auto-rows: auto;
+  // grid-template: repeat(3, 1fr);
+}
+
+.Card:hover:after {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82
+  );
+  border-radius: calc(2 * var(--borderWidth));
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.Card__Picture {
+  // background-color: green;
+  //overflow: hidden;
+  border-radius: var(--borderWidth) var(--borderWidth) 0 0;
+  object-fit: cover;
+  grid-area: picture;
+}
+
+.Card__Information {
+  // background-color: red;
+  border-radius: 0 0 var(--borderWidth) var(--borderWidth);
+  grid-area: info;
+  display: grid;
+  grid-template-areas:
+    "platform platform"
+    "gameName gameName"
+    "infoKey infoValue";
+  /* "infoKey infoValue"
+    "infoKey infoValue"; */
+  grid-template-rows: 0.25fr 0.4fr 1fr;
+  grid-template-columns: 0.5fr 0.5fr;
+  padding: 0 0.75rem;
+}
+
+.Card__Information__Platform {
+  grid-area: platform;
+  //background-color: red;
+  display: flex;
+  align-items: center;
+}
+
+.Card__Information__Name {
+  grid-area: gameName;
+  // background-color: green;
+  display: flex;
+  align-items: center;
+}
+.Card__Information__InfoKey {
+  grid-area: infoKey;
+  //background-color: orangered;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  //border-radius: 0 0 var(--borderWidth) var(--borderWidth);
+  border-bottom-left-radius: var(--borderWidth);
+}
+.Card__Information__InfoValue {
+  grid-area: infoValue;
+  //background-color: yellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  // border-radius: 0 0 var(--borderWidth) var(--borderWidth);
+  border-bottom-right-radius: var(--borderWidth);
 }
