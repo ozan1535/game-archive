@@ -2,11 +2,7 @@ import Image from "next/image";
 import { CardInformationKeyAndValue } from "./CardInformationKeyAndValue";
 import styles from "./styles.module.scss";
 
-const sampleArr = ["adsf", "fewf", "wefdsf"];
-
 export function Card({ data }) {
-  console.log(data, "fewfwe");
-
   return (
     <>
       {data.results.map((item, index) => (
