@@ -1,7 +1,6 @@
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-import { getLayoutDefault } from "@/layouts/LayoutDefault";
 import { Card } from "@/components/Card/Card";
+import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 
 export default function Home({ data }: { data: Record<string, any> }) {
   return (
@@ -12,14 +11,13 @@ export default function Home({ data }: { data: Record<string, any> }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <Card data={data} />
-      </main>
+
+      <Card data={data} />
     </>
   );
 }
 
-Home.getLayout = getLayoutDefault;
+Home.getLayout = getLayoutCardPages;
 
 export async function getStaticProps() {
   // Fetch data from external API
