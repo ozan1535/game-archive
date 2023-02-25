@@ -1,8 +1,9 @@
 import Head from "next/head";
 import { Card } from "@/components/Card/Card";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
+import { IData } from "@/layouts/LayoutCardPages/types";
 
-export default function Home({ data }: { data: Record<string, any> }) {
+export default function Home({ data }: IData) {
   return (
     <>
       <Head>

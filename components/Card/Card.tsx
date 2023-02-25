@@ -1,8 +1,9 @@
 import Image from "next/image";
+import { IData } from "@/layouts/LayoutCardPages/types";
 import { CardInformationKeyAndValue } from "./CardInformationKeyAndValue";
 import styles from "./styles.module.scss";
 
-export function Card({ data }) {
+export function Card({ data }: IData) {
   return (
     <>
       {data.map((item, index) => (

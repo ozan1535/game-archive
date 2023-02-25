@@ -1,7 +1,8 @@
 import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
+import { IData } from "@/layouts/LayoutCardPages/types";
 
-export default function Developers({ data }) {
+export default function Developers({ data }: IData) {
   return <SecondaryCard data={data} />;
 }
 

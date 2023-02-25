@@ -1,7 +1,8 @@
 import Image from "next/image";
+import { IData } from "@/layouts/LayoutCardPages/types";
 import styles from "./styles.module.scss";
 
-export function SecondaryCard({ data }) {
+export function SecondaryCard({ data }: IData) {
   return (
     <>
       {data.map((item, index) => (
