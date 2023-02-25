@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 export function Card({ data }) {
   return (
     <>
-      {data.results.map((item, index) => (
+      {data.map((item, index) => (
         <div className={styles["Card"]} key={index}>
           <Image
             alt="image"

@@ -2,8 +2,6 @@ import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 
 export default function Stores({ data }) {
-  console.log(data);
-
   return <SecondaryCard data={data} />;
 }
 
@@ -15,5 +13,5 @@ export async function getStaticProps() {
   const data = await res.json();
 
   // Pass data to the page via props
-  return { props: { data } };
+  return { props: { data: data.results } };
 }

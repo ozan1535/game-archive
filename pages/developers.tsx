@@ -11,5 +11,5 @@ export async function getStaticProps() {
   const response = await fetch(`${process.env.GET_DEVELOPERS}`);
   const data = await response.json();
 
-  return { props: { data } };
+  return { props: { data: data.results } };
 }

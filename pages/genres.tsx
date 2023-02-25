@@ -12,6 +12,6 @@ export async function getStaticProps() {
   const data = await response.json();
 
   return {
-    props: { data },
+    props: { data: data.results },
   };
 }

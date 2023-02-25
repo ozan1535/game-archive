@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 export function SecondaryCard({ data }) {
   return (
     <>
-      {data.results.map((item, index) => (
+      {data.map((item, index) => (
         <div key={index} className={styles["SecondaryCard"]}>
           <div className={styles["SecondaryCard__Name"]}>{item.name}</div>
           <Image
