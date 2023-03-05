@@ -1,13 +1,20 @@
-export function CardInformationKeyAndValue({ name }: { name: string }) {
+import { ICardInformationKeyAndValueProps } from "./CardInformationKeyAndValue.types";
+import styles from "./styles.module.scss";
+
+export function CardInformationKeyAndValue({
+  name,
+  color,
+}: ICardInformationKeyAndValueProps) {
   return (
     <>
-      <div>{name}</div>
-      <hr
+      <div
+        className={styles["CardInformationKeyAndValue"]}
         style={{
-          width: "100%",
-          border: "0.9px solid #1098ad",
+          color: color || "#bfbdbd",
         }}
-      />
+      >
+        {name}
+      </div>
     </>
   );
 }

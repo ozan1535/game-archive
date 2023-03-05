@@ -68,43 +68,65 @@
     "platform platform"
     "gameName gameName"
     "infoKey infoValue";
-  /* "infoKey infoValue"
-    "infoKey infoValue"; */
   grid-template-rows: 0.25fr 0.4fr 1fr;
-  grid-template-columns: 0.5fr 0.5fr;
+  grid-template-columns: 0.4fr 1fr;
   padding: 0 0.75rem;
 }
 
 .Card__Information__Platform {
   grid-area: platform;
-  //background-color: red;
   display: flex;
   align-items: center;
 }
 
 .Card__Information__Name {
   grid-area: gameName;
-  // background-color: green;
   display: flex;
   align-items: center;
+  color: rgb(122, 240, 201);
 }
 .Card__Information__InfoKey {
+  position: relative;
   grid-area: infoKey;
-  //background-color: orangered;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
-  //border-radius: 0 0 var(--borderWidth) var(--borderWidth);
   border-bottom-left-radius: var(--borderWidth);
 }
+
+.Card__Information__InfoKey div::after {
+  position: absolute;
+  content: "";
+
+  left: 0;
+  margin-top: 1.25rem;
+  width: 100%;
+  height: 1px;
+  background-color: rgb(161, 165, 185);
+}
+
+.Card__Information__InfoValue div::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  margin-top: 1.25rem;
+  width: 100%;
+  height: 1px;
+  background-color: rgb(161, 165, 185);
+}
+
 .Card__Information__InfoValue {
   grid-area: infoValue;
-  //background-color: yellow;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-end;
-  // border-radius: 0 0 var(--borderWidth) var(--borderWidth);
   border-bottom-right-radius: var(--borderWidth);
+}
+
+.CardInformationKeyAndValue {
+  font-size: 12px;
+  font-weight: normal;
+  margin: 0 0.1rem;
 }

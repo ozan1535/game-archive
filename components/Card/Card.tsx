@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { IData } from "@/layouts/LayoutCardPages/types";
 import { CardInformationKeyAndValue } from "./CardInformationKeyAndValue";
@@ -20,16 +21,30 @@ export function Card({ data }: IData) {
             <div className={styles["Card__Information__Platform"]}>
               platforms
             </div>
-            <div className={styles["Card__Information__Name"]}>{item.name}</div>
+            <div className={styles["Card__Information__Name"]}>
+              <Link href={`/games/${item.slug}`}>{item.name}</Link>
+            </div>
             <div className={styles["Card__Information__InfoKey"]}>
               <CardInformationKeyAndValue name={"Release date:"} />
               <CardInformationKeyAndValue name={"Genres:"} />
-              <CardInformationKeyAndValue name={"Chart:"} />
+              <CardInformationKeyAndValue name={"Rating:"} />
             </div>
             <div className={styles["Card__Information__InfoValue"]}>
-              <CardInformationKeyAndValue name={item.released} />
-              <CardInformationKeyAndValue name={"fwefew"} />
-              <CardInformationKeyAndValue name={"vewvdsd"} />
+              <CardInformationKeyAndValue name={item.released} color="white" />
+
+              <div style={{ display: "flex" }}>
+                {item.genres?.map((genre) => (
+                  <>
+                    <CardInformationKeyAndValue
+                      name={genre.name}
+                      color="white"
+                      key={genre.id}
+                    />
+                  </>
+                ))}
+              </div>
+
+              <CardInformationKeyAndValue name={item.rating} color="white" />
             </div>
           </div>
         </div>
