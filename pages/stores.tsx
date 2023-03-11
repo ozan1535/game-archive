@@ -3,7 +3,7 @@ import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { IData } from "@/layouts/LayoutCardPages/types";
 
 export default function Stores({ data }: IData) {
-  return <SecondaryCard data={data} />;
+  return <SecondaryCard data={data} page="stores" />;
 }
 
 Stores.getLayout = getLayoutCardPages;
