@@ -33,13 +33,23 @@ export function Card({ data }: IData) {
               <CardInformationKeyAndValue name={item.released} color="white" />
 
               <div style={{ display: "flex" }}>
-                {item.genres?.map((genre) => (
+                {item.genres?.map((genre, index) => (
                   <>
-                    <CardInformationKeyAndValue
-                      name={genre.name}
-                      color="white"
-                      key={genre.id}
-                    />
+                    <div
+                      className={styles["CardInformationKeyAndValue"]}
+                      style={{
+                        color: "white",
+                      }}
+                    >
+                      <span>{`${index ? ", " : ""}`}</span>
+                      <Link
+                        href="/hello"
+                        target="_blank"
+                        style={{ textDecoration: "underline" }}
+                      >
+                        {genre.name}
+                      </Link>
+                    </div>
                   </>
                 ))}
               </div>
