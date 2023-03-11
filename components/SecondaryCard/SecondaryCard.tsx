@@ -3,13 +3,13 @@ import { IData } from "@/layouts/LayoutCardPages/types";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 
-export function SecondaryCard({ data }: IData) {
+export function SecondaryCard({ data, page }: IData) {
   return (
     <>
       {data.map((item, index) => (
         <div key={index} className={styles["SecondaryCard"]}>
           <div className={styles["SecondaryCard__Name"]}>
-            <Link href={"/za"}>{item.name}</Link>
+            <Link href={`/${page}/${item.id}/${item.slug}`}>{item.name}</Link>
           </div>
           <Image
             src={item.image_background}
