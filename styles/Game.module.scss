@@ -1,0 +1,114 @@
+.Game {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+    "gameName"
+    "media"
+    "description"
+    "info";
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  transition: 2s;
+}
+
+.Game a {
+  transition: 0.75s;
+}
+
+.Game a:hover {
+  color: rgb(16, 55, 99);
+}
+
+.Game div {
+  justify-self: center;
+}
+
+.Game > div > p {
+  color: rgb(16, 55, 99);
+}
+.Game > div > b {
+  color: rgb(16, 55, 99);
+}
+
+.Game__Name {
+  grid-area: gameName;
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.Game__Media {
+  grid-area: media;
+}
+
+.Game__Description {
+  grid-area: description;
+  width: 40%;
+  text-align: justify;
+  margin: 1rem 0;
+  color: white;
+}
+
+.Game__Info {
+  width: 40%;
+  display: grid;
+  grid-area: info;
+  grid-template-areas:
+    "platforms metascore"
+    "genres release"
+    "developer publisher";
+  align-items: center;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 0.5fr 0.5fr;
+  margin-bottom: 1rem;
+}
+
+.Game__Info div {
+  width: 100%;
+}
+
+.Game__Info div p {
+  color: rgb(16, 55, 99);
+}
+
+.Game__Info div div {
+  color: rgb(255, 255, 255);
+}
+
+.Game__Metascore,
+.Game__Release,
+.Game__Publisher {
+  text-align: end;
+}
+.Game__Platforms {
+  grid-area: platforms;
+}
+.Game__Metascore {
+  grid-area: metascore;
+}
+.Game__Genres {
+  grid-area: genres;
+}
+.Game__Release {
+  grid-area: release;
+}
+.Game__Developer {
+  grid-area: developer;
+}
+.Game__Publisher {
+  grid-area: publisher;
+}
+
+.Game__Tag {
+  width: 40%;
+  margin-bottom: 1rem;
+}
+
+.Game__Tag div,
+.Game__Website div {
+  color: white;
+}
+.Game__Website {
+  width: 40%;
+  margin-bottom: 1rem;
+}
