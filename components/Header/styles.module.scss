@@ -10,9 +10,9 @@
 
 .Header__Link {
   margin: 0 1rem;
+  transition: 0.5s;
 }
 
 .Header__Link:hover {
   color: rgb(110, 174, 202);
-  transition: 0.25s;
 }
