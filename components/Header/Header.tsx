@@ -10,7 +10,7 @@ export function Header() {
       {headerItems.map((item, index) => {
         return (
           <Link
-            href={item.title.toLowerCase()}
+            href={`/${item.title.toLowerCase()}`}
             key={index}
             className={styles["Header__Link"]}
           >
