@@ -1,8 +1,6 @@
-import { GetStaticProps } from "next";
+import Link from "next/link";
 import { getLayoutDefault } from "@/layouts/LayoutDefault";
 import styles from "@/styles/Game.module.scss";
-import { useRouter } from "next/router";
-import Link from "next/link";
 
 export default function Game({ data }) {
   return (
@@ -138,10 +136,11 @@ Game.getLayout = getLayoutDefault;
 
 export async function getServerSideProps(context) {
   const { slug } = context.query; // get the slug from the query parameters
-  console.log(slug, "jajajaja");
 
   // Fetch the data for the specified slug
-  const res = await fetch(`http://localhost:3000/api/${slug}`);
+  const res = await fetch(
+    `https://api.rawg.io/api/games/${slug}?key=${process.env.API_KEY}`
+  );
   const data = await res.json();
 
   return {

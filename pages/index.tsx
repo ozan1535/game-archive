@@ -20,11 +20,15 @@ export default function Home({ data }: IData) {
 
 Home.getLayout = getLayoutCardPages;
 
-export async function getStaticProps() {
-  // Fetch data from external API
-  const res = await fetch(`${process.env.GET_GAMES}`);
+export async function getServerSideProps() {
+  const res = await fetch(
+    `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page_size=15`
+  );
   const data = await res.json();
 
-  // Pass data to the page via props
-  return { props: { data: data.results } };
+  return {
+    props: {
+      data: data.results,
+    },
+  };
 }

@@ -8,11 +8,15 @@ export default function Genres({ data }: IData) {
 
 Genres.getLayout = getLayoutCardPages;
 
-export async function getStaticProps() {
-  const response = await fetch(`${process.env.GET_GENRES}`);
-  const data = await response.json();
+export async function getServerSideProps() {
+  const res = await fetch(
+    `https://api.rawg.io/api/genres?key=${process.env.API_KEY}`
+  );
+  const data = await res.json();
 
   return {
-    props: { data: data.results },
+    props: {
+      data: data.results,
+    },
   };
 }

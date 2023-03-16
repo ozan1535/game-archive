@@ -9,29 +9,16 @@ export default function Platform({ data }) {
 
 Platform.getLayout = getLayoutCardPages;
 
-export async function getStaticPaths() {
-  // Fetch data from external API
+export async function getServerSideProps(context) {
+  // Fetch the data for the specified slug
   const res = await fetch(
-    "https://api.rawg.io/api/platforms?key=6f43fbe9adea45828438d5dc7b72c345"
+    `https://api.rawg.io/api/games?key=${process.env.API_KEY}&platforms=${context?.params?.slug[0]}`
   );
   const data = await res.json();
 
-  const paths = data.results.map((result) => {
-    return {
-      params: { slug: [`${result.id}`, `${result.slug}`] },
-    };
-  });
-
-  // Pass data to the page via props
-  return { paths, fallback: false };
+  return {
+    props: {
+      data: data.results,
+    },
+  };
 }
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetch(
-    `https://api.rawg.io/api/games?key=6f43fbe9adea45828438d5dc7b72c345&platforms=${context?.params?.slug[0]}`
-  );
-  const data = await res.json();
-
-  // Pass data to the page via props
-  return { props: { data: data.results } };
-};

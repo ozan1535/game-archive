@@ -8,9 +8,15 @@ export default function Developers({ data }: IData) {
 
 Developers.getLayout = getLayoutCardPages;
 
-export async function getStaticProps() {
-  const response = await fetch(`${process.env.GET_DEVELOPERS}`);
-  const data = await response.json();
+export async function getServerSideProps() {
+  const res = await fetch(
+    `https://api.rawg.io/api/developers?key=${process.env.API_KEY}`
+  );
+  const data = await res.json();
 
-  return { props: { data: data.results } };
+  return {
+    props: {
+      data: data.results,
+    },
+  };
 }

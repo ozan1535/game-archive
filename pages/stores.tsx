@@ -8,11 +8,15 @@ export default function Stores({ data }: IData) {
 
 Stores.getLayout = getLayoutCardPages;
 
-export async function getStaticProps() {
-  // Fetch data from external API
-  const res = await fetch(`${process.env.GET_STORES}`);
+export async function getServerSideProps() {
+  const res = await fetch(
+    `https://api.rawg.io/api/stores?key=${process.env.API_KEY}`
+  );
   const data = await res.json();
 
-  // Pass data to the page via props
-  return { props: { data: data.results } };
+  return {
+    props: {
+      data: data.results,
+    },
+  };
 }
