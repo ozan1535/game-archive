@@ -10,12 +10,14 @@ export default function Game({ data }) {
       <div className={styles["Game__Name"]}>
         <b>{data.name}</b>
       </div>
+
       <div className={styles["Game__Media"]}>
         <video width="720" height="500" controls>
-          <source src={data.clip.clip} type="video/mp4" />
+          <source src={data.clip?.clip} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
+
       <div className={styles["Game__Description"]}>
         <b>About</b>
         <div dangerouslySetInnerHTML={{ __html: data.description }}></div>
@@ -28,8 +30,7 @@ export default function Game({ data }) {
               <>
                 <span>{`${index ? ", " : ""}`}</span>
                 <Link
-                  href="/hello"
-                  target="_blank"
+                  href={`/platforms/${platform.platform.id}/${platform.platform.slug}`}
                   style={{ textDecoration: "underline" }}
                 >
                   {platform.platform.name}
@@ -41,7 +42,7 @@ export default function Game({ data }) {
         <div className={styles["Game__Metascore"]}>
           <p> Metascore</p>
           <div>
-            <span>{data.metacritic}</span>
+            <span>{data.metacritic || "?"}</span>
           </div>
         </div>
         <div className={styles["Game__Genres"]}>
@@ -51,8 +52,7 @@ export default function Game({ data }) {
               <>
                 <span>{`${index ? ", " : ""}`}</span>
                 <Link
-                  href="/hello"
-                  target="_blank"
+                  href={`/genres/${genre.id}/${genre.slug}`}
                   style={{ textDecoration: "underline" }}
                 >
                   {genre.name}
@@ -74,8 +74,7 @@ export default function Game({ data }) {
               <>
                 <span>{`${index ? ", " : ""}`}</span>
                 <Link
-                  href="/hello"
-                  target="_blank"
+                  href={`/developers/${developer.id}/${developer.slug}`}
                   style={{ textDecoration: "underline" }}
                 >
                   {developer.name}
@@ -137,25 +136,17 @@ export default function Game({ data }) {
 
 Game.getLayout = getLayoutDefault;
 
-export async function getStaticPaths() {
-  // Fetch data from external API
-  const res = await fetch(`${process.env.GET_GAMES}`);
+export async function getServerSideProps(context) {
+  const { slug } = context.query; // get the slug from the query parameters
+  console.log(slug, "jajajaja");
+
+  // Fetch the data for the specified slug
+  const res = await fetch(`http://localhost:3000/api/${slug}`);
   const data = await res.json();
 
-  const paths = data.results.map((result) => {
-    return {
-      params: { slug: result.slug },
-    };
-  });
-
-  // Pass data to the page via props
-  return { paths, fallback: false };
+  return {
+    props: {
+      data,
+    },
+  };
 }
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetch(`http://localhost:3000/api/${context?.params?.slug}`);
-  const data = await res.json();
-
-  // Pass data to the page via props
-  return { props: { data } };
-};
