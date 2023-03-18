@@ -2,8 +2,9 @@ import Head from "next/head";
 import { Card } from "@/components/Card/Card";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { IData } from "@/layouts/LayoutCardPages/types";
+import { Pagination } from "@/components/Pagination/Pagination";
 
-export default function Home({ data }: IData) {
+export default function Home({ data, count }: IData) {
   return (
     <>
       <Head>
@@ -14,6 +15,9 @@ export default function Home({ data }: IData) {
       </Head>
 
       <Card data={data} />
+      <div className={"layoutCardPages__Pagination"}>
+        <Pagination count={count} />
+      </div>
     </>
   );
 }
@@ -22,13 +26,14 @@ Home.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps() {
   const res = await fetch(
-    `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page_size=15`
+    `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page_size=20`
   );
   const data = await res.json();
 
   return {
     props: {
       data: data.results,
+      count: data.count,
     },
   };
 }

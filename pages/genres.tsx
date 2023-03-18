@@ -10,7 +10,7 @@ Genres.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps() {
   const res = await fetch(
-    `https://api.rawg.io/api/genres?key=${process.env.API_KEY}`
+    `https://api.rawg.io/api/genres?key=${process.env.API_KEY}&page_size=20`
   );
   const data = await res.json();
 
