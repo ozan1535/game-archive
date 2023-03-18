@@ -1,11 +1,10 @@
 import { LayoutDefault } from "../LayoutDefault";
 import { ILayoutCardPage } from "./types";
-import styles from "@/styles/Home.module.css";
 
 export function LayoutCardPages(props: ILayoutCardPage) {
   const { children } = props;
 
-  return <div className={styles["main"]}>{children}</div>;
+  return <div className="layoutCardPages">{children}</div>;
 }
 
 export function getLayoutCardPages(page: JSX.Element) {

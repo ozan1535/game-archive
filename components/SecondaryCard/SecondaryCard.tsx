@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export function SecondaryCard({ data, page }: IData) {
   return (
-    <>
+    <div className="layoutCardPages__Cards">
       {data.map((item, index) => (
         <div key={index} className={styles["SecondaryCard"]}>
           <div className={styles["SecondaryCard__Name"]}>
@@ -20,6 +20,6 @@ export function SecondaryCard({ data, page }: IData) {
           />
         </div>
       ))}
-    </>
+    </div>
   );
 }
