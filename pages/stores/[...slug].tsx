@@ -5,7 +5,9 @@ import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrent
 
 export default function Platform({ count, param }) {
   const data = useGetCurrentData("games", "stores", param);
-
+  if (data?.detail) {
+    return <div>{data.detail}</div>;
+  }
   return (
     <>
       <Card data={data} />
@@ -26,11 +28,12 @@ export async function getServerSideProps(context) {
     }&page_size=20&page=${context.query.page || 1}`
   );
   const data = await res.json();
+  console.log(data, "kafdksfaks");
 
   return {
     props: {
-      data: data.results,
-      count: data.count,
+      data: data.results || data,
+      count: data.count || 0,
       param: context?.params?.slug[0],
     },
   };

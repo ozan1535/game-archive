@@ -6,6 +6,10 @@ import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrent
 export default function Platform({ count, param }) {
   const data = useGetCurrentData("games", "platforms", param);
 
+  if (data?.detail) {
+    return <div>{data.detail}</div>;
+  }
+
   return (
     <>
       <Card data={data} />
@@ -29,8 +33,8 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      data: data.results,
-      count: data.count,
+      data: data.results || data,
+      count: data.count || 0,
       param: context?.params?.slug[0],
     },
   };
