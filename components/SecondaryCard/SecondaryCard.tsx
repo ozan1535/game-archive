@@ -12,8 +12,12 @@ export function SecondaryCard({ data, page }: IData) {
             <Link href={`/${page}/${item.id}/${item.slug}`}>{item.name}</Link>
           </div>
           <Image
-            src={item.image_background}
-            alt={item.image_background}
+            src={
+              item.image_background?.includes("media.rawg.io")
+                ? item.image_background
+                : ""
+            }
+            alt={item.name}
             width={350}
             height={350}
             className={styles["SecondaryCard__Picture"]}

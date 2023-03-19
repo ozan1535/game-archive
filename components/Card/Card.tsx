@@ -11,7 +11,11 @@ export function Card({ data }: IData) {
         <div className={styles["Card"]} key={index}>
           <Image
             alt="image"
-            src={item.background_image}
+            src={
+              item.background_image?.includes("media.rawg.io")
+                ? item.background_image
+                : ""
+            }
             className={styles["Card__Picture"]}
             width={328}
             height={160}
@@ -30,7 +34,11 @@ export function Card({ data }: IData) {
               <CardInformationKeyAndValue name={"Rating:"} />
             </div>
             <div className={styles["Card__Information__InfoValue"]}>
-              <CardInformationKeyAndValue name={item.released} color="white" />
+              {/* TODO: WRITE SOMETHING IF ITEM DOESN'T EXIST */}
+              <CardInformationKeyAndValue
+                name={item.released || "??"}
+                color="white"
+              />
 
               <div style={{ display: "flex" }}>
                 {item.genres?.map((genre, index) => (
@@ -42,13 +50,13 @@ export function Card({ data }: IData) {
                       }}
                     >
                       <span>{`${index ? ", " : ""}`}</span>
-                      <Link
+                      {/* <Link
                         href="/hello"
                         target="_blank"
                         style={{ textDecoration: "underline" }}
-                      >
-                        {genre.name}
-                      </Link>
+                      > */}
+                      {genre.name}
+                      {/* </Link> */}
                     </div>
                   </>
                 ))}
