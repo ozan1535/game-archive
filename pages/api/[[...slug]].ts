@@ -21,7 +21,6 @@ export default function handler(
     );
 
     const data = await response.json();
-    console.log(data, "jajajjjaja");
 
     res.status(200).json(data.results);
   };
