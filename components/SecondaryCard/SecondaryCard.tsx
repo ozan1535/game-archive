@@ -6,7 +6,7 @@ import Link from "next/link";
 export function SecondaryCard({ data, page }: IData) {
   return (
     <div className="layoutCardPages__Cards">
-      {data.map((item, index) => (
+      {data?.map((item, index) => (
         <div key={index} className={styles["SecondaryCard"]}>
           <div className={styles["SecondaryCard__Name"]}>
             <Link href={`/${page}/${item.id}/${item.slug}`}>{item.name}</Link>

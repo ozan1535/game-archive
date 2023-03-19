@@ -7,7 +7,7 @@ import styles from "./styles.module.scss";
 export function Card({ data }: IData) {
   return (
     <div className="layoutCardPages__Cards">
-      {data.map((item, index) => (
+      {data?.map((item, index) => (
         <div className={styles["Card"]} key={index}>
           <Image
             alt="image"
