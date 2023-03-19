@@ -1,9 +1,12 @@
 import { Pagination } from "@/components/Pagination/Pagination";
 import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
+import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
 import { IData } from "@/layouts/LayoutCardPages/types";
 
-export default function Developers({ data, count }: IData) {
+export default function Developers({ count }: IData) {
+  const data = useGetCurrentData("developers");
+
   return (
     <>
       <SecondaryCard data={data} page="developers" />
@@ -16,9 +19,11 @@ export default function Developers({ data, count }: IData) {
 
 Developers.getLayout = getLayoutCardPages;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const res = await fetch(
-    `https://api.rawg.io/api/developers?key=${process.env.API_KEY}&page_size=20`
+    `https://api.rawg.io/api/developers?key=${
+      process.env.API_KEY
+    }&page_size=20&page=${context.query.page || 1}`
   );
   const data = await res.json();
 

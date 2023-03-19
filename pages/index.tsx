@@ -3,8 +3,11 @@ import { Card } from "@/components/Card/Card";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { IData } from "@/layouts/LayoutCardPages/types";
 import { Pagination } from "@/components/Pagination/Pagination";
+import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
 
-export default function Home({ data, count }: IData) {
+export default function Home({ count }: IData) {
+  const data = useGetCurrentData("games");
+
   return (
     <>
       <Head>
@@ -24,15 +27,19 @@ export default function Home({ data, count }: IData) {
 
 Home.getLayout = getLayoutCardPages;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  // check page=44283 after deploy
   const res = await fetch(
-    `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page_size=20`
+    `https://api.rawg.io/api/games?key=${
+      process.env.API_KEY
+    }&page_size=20&page=${context.query.page || 1}`
   );
   const data = await res.json();
+  //console.log("baslangic--------", data.results, "-------------son");
 
   return {
     props: {
-      data: data.results,
+      data: data?.results,
       count: data.count,
     },
   };
