@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 
 export function Pagination({ count }: { count: number }) {
+  // TODO: IF DATA count < 20 , then don't show pagination
   const router = useRouter();
 
   const divideContentNumbers = Math.floor(count / 20);
