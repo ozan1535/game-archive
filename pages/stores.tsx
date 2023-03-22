@@ -1,9 +1,17 @@
+import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
+import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
 import { IData } from "@/layouts/LayoutCardPages/types";
 
-export default function Stores({ data, count }: IData) {
+export default function Stores({ count }: IData) {
+  const data = useGetCurrentData("stores");
+
+  if (data?.detail) {
+    return <InvalidPage detail={data.detail} />;
+  }
+
   return (
     <>
       <SecondaryCard data={data} page="stores" />
@@ -26,8 +34,8 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      data: data.results,
-      count: data.count,
+      data: data.results || data,
+      count: data.count || 0,
     },
   };
 }

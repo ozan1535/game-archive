@@ -24,6 +24,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         fallback: {
           [`/api/games/${router.query.page || 1}/`]: pageProps.data,
           [`/api/platforms/${router.query.page || 1}/`]: pageProps.data,
+          [`/api/genres/${router.query.page || 1}/`]: pageProps.data,
+          [`/api/stores/${router.query.page || 1}/`]: pageProps.data,
           [`/api/developers/${router.query.page || 1}/`]: pageProps.data,
           [`/api/games/${router.query.page || 1}/platforms/${pageProps.param}`]:
             pageProps.data,

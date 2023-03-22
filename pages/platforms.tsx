@@ -1,3 +1,4 @@
+import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
@@ -6,6 +7,10 @@ import { IData } from "@/layouts/LayoutCardPages/types";
 
 export default function Platforms({ count }: IData) {
   const data = useGetCurrentData("platforms");
+
+  if (data?.detail) {
+    return <InvalidPage detail={data.detail} />;
+  }
 
   return (
     <>
@@ -31,8 +36,8 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      data: data.results,
-      count: data.count,
+      data: data.results || data,
+      count: data.count || 0,
     },
   };
 }
