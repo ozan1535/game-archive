@@ -14,7 +14,7 @@ export function Card({ data }: IData) {
             src={
               item.background_image?.includes("media.rawg.io")
                 ? item.background_image
-                : ""
+                : "/not-found.png"
             }
             className={styles["Card__Picture"]}
             width={328}
@@ -28,41 +28,56 @@ export function Card({ data }: IData) {
             <div className={styles["Card__Information__Name"]}>
               <Link href={`/games/${item.slug}`}>{item.name}</Link>
             </div>
-            <div className={styles["Card__Information__InfoKey"]}>
-              <CardInformationKeyAndValue name={"Release date:"} />
-              <CardInformationKeyAndValue name={"Genres:"} />
-              <CardInformationKeyAndValue name={"Rating:"} />
-            </div>
-            <div className={styles["Card__Information__InfoValue"]}>
-              {/* TODO: WRITE SOMETHING IF ITEM DOESN'T EXIST */}
+
+            <div className={styles["Card__Information__Release"]}>
+              <div>Release date:</div>
               <CardInformationKeyAndValue
-                name={item.released || "??"}
+                name={item.released || "Not found"}
                 color="white"
               />
-
-              <div style={{ display: "flex" }}>
-                {item.genres?.map((genre, index) => (
-                  <>
-                    <div
-                      className={styles["CardInformationKeyAndValue"]}
-                      style={{
-                        color: "white",
-                      }}
-                    >
-                      <span>{`${index ? ", " : ""}`}</span>
-                      {/* <Link
-                        href="/hello"
-                        target="_blank"
-                        style={{ textDecoration: "underline" }}
-                      > */}
-                      {genre.name}
-                      {/* </Link> */}
-                    </div>
-                  </>
-                ))}
+            </div>
+            <div className={styles["Card__Information__Genres"]}>
+              <div>Genres:</div>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "flex-end",
+                }}
+              >
+                {item.genres.length ? (
+                  item.genres?.map((genre, index) => (
+                    <>
+                      <div
+                        style={{
+                          color: "white",
+                        }}
+                      >
+                        <span>{`${index ? ", " : ""}`}</span>
+                        <Link
+                          href={`/genres/${genre.id}/${genre.name}`}
+                          target="_blank"
+                          style={{
+                            textDecoration: "underline",
+                            transition: "0.75s",
+                          }}
+                        >
+                          {genre.name}
+                        </Link>
+                      </div>
+                    </>
+                  ))
+                ) : (
+                  <CardInformationKeyAndValue name="Not found" color="white" />
+                )}
               </div>
-
-              <CardInformationKeyAndValue name={item.rating} color="white" />
+            </div>
+            <div className={styles["Card__Information__Rating"]}>
+              <div>Rating:</div>
+              <CardInformationKeyAndValue
+                name={item.rating || "Not found"}
+                color="white"
+              />
             </div>
           </div>
         </div>

@@ -52,23 +52,22 @@
 }
 
 .Card__Picture {
-  // background-color: green;
-  //overflow: hidden;
   border-radius: var(--borderWidth) var(--borderWidth) 0 0;
   object-fit: cover;
   grid-area: picture;
 }
 
 .Card__Information {
-  // background-color: red;
   border-radius: 0 0 var(--borderWidth) var(--borderWidth);
   grid-area: info;
   display: grid;
   grid-template-areas:
     "platform platform"
     "gameName gameName"
-    "infoKey infoValue";
-  grid-template-rows: 0.25fr 0.4fr 1fr;
+    "release release"
+    "genres genres"
+    "rating rating";
+  grid-template-rows: 0.25fr 0.4fr auto;
   grid-template-columns: 0.4fr 1fr;
   padding: 0 0.25rem;
 }
@@ -77,6 +76,7 @@
   grid-area: platform;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .Card__Information__Name {
@@ -85,52 +85,45 @@
   align-items: center;
   color: rgb(122, 240, 201);
 }
-.Card__Information__InfoKey {
-  position: relative;
-  grid-area: infoKey;
+
+.Card__Information__Release,
+.Card__Information__Genres,
+.Card__Information__Rating {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-start;
-  border-bottom-left-radius: var(--borderWidth);
-}
-
-.Card__Information__InfoKey div::after {
-  position: absolute;
-  content: "";
-
-  left: 0;
-  margin-top: 1.25rem;
-  width: 100%;
-  height: 1px;
-  background-color: rgb(161, 165, 185);
-}
-
-.Card__Information__InfoValue div::after {
-  position: absolute;
-  content: "";
-  left: 0;
-  margin-top: 1.25rem;
-  width: 100%;
-  height: 1px;
-  background-color: rgb(161, 165, 185);
-}
-
-.Card__Information__InfoValue {
-  grid-area: infoValue;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-end;
-  border-bottom-right-radius: var(--borderWidth);
-}
-
-.CardInformationKeyAndValue {
+  align-items: center;
+  justify-content: space-between;
   font-size: 12px;
   font-weight: normal;
 }
 
-.CardInformationKeyAndValue a:hover {
+.Card__Information__Release::after,
+.Card__Information__Genres::after,
+.Card__Information__Rating::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  margin-top: 1.5rem;
+  width: 100%;
+  height: 1px;
+  background-color: rgb(161, 165, 185);
+}
+
+.Card__Information__Release :first-child,
+.Card__Information__Genres :first-child,
+.Card__Information__Rating :first-child {
+  color: rgb(161, 165, 185);
+}
+
+.Card__Information__Release {
+  grid-area: release;
+}
+.Card__Information__Genres {
+  grid-area: genres;
+}
+.Card__Information__Rating {
+  grid-area: rating;
+}
+
+.Card__Information__Genres a:hover {
   color: rgb(110, 174, 202);
-  transition: 0.75s;
 }
