@@ -10,9 +10,11 @@ export default function Developers({ count }: IData) {
   return (
     <>
       <SecondaryCard data={data} page="developers" />
-      <div className={"layoutCardPages__Pagination"}>
-        <Pagination count={count} />
-      </div>
+      {count > 20 && (
+        <div className={"layoutCardPages__Pagination"}>
+          <Pagination count={count} />
+        </div>
+      )}
     </>
   );
 }

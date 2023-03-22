@@ -18,9 +18,11 @@ export default function Home({ count }: IData) {
       </Head>
 
       <Card data={data} />
-      <div className={"layoutCardPages__Pagination"}>
-        <Pagination count={count} />
-      </div>
+      {count > 20 && (
+        <div className={"layoutCardPages__Pagination"}>
+          <Pagination count={count} />
+        </div>
+      )}
     </>
   );
 }

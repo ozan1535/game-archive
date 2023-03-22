@@ -1,19 +1,24 @@
 import { Card } from "@/components/Card/Card";
+import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
 
 export default function Platform({ count, param }) {
   const data = useGetCurrentData("games", "stores", param);
+
   if (data?.detail) {
-    return <div>{data.detail}</div>;
+    return <InvalidPage detail={data.detail} />;
   }
+
   return (
     <>
       <Card data={data} />
-      <div className={"layoutCardPages__Pagination"}>
-        <Pagination count={count} />
-      </div>
+      {count > 20 && (
+        <div className={"layoutCardPages__Pagination"}>
+          <Pagination count={count} />
+        </div>
+      )}
     </>
   );
 }
