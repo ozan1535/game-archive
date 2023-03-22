@@ -24,11 +24,11 @@
 .SecondaryCard__Picture {
   border-radius: var(--borderWidth) var(--borderWidth) 0 0;
   object-fit: cover;
+  transition: 0.5s;
 }
 
 .SecondaryCard:hover .SecondaryCard__Picture {
   width: 400px;
   height: 400px;
-  transition: 0.5s;
   opacity: 0.4;
 }
