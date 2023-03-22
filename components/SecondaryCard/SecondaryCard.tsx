@@ -15,7 +15,7 @@ export function SecondaryCard({ data, page }: IData) {
             src={
               item.image_background?.includes("media.rawg.io")
                 ? item.image_background
-                : ""
+                : "/not-found.png"
             }
             alt={item.name}
             width={350}
