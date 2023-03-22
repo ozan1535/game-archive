@@ -161,7 +161,8 @@ a {
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
   row-gap: 50px;
-  margin-top: 50px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .layoutCardPages__Pagination {
