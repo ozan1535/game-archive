@@ -27,7 +27,7 @@ export default function Stores({ count }: IData) {
 
 Stores.getLayout = getLayoutCardPages;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const session = await getSession(context);
 
   const res = await fetch(
