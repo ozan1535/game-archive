@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, account }) {
       if (account) {
         const res = await fetch(
-          `http://localhost:1337/api/auth/${account.provider}/callback?access_token=${account.access_token}`
+          `${process.env.SERVER_LINK}/api/auth/google/callback?access_token=${account.access_token}`
         );
         const data = await res.json();
         const { jwt, user } = data;
