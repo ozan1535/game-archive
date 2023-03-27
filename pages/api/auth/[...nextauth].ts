@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
   },
 
   // Not providing any secret or NEXTAUTH_SECRET will throw an error in production.
-  //secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const auth = (req: NextApiRequest, res: NextApiResponse) =>
