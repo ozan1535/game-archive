@@ -3,6 +3,7 @@ import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
+import { getSession } from "next-auth/react";
 
 export default function Platform({ count, param }) {
   const data = useGetCurrentData("games", "genres", param);
@@ -26,6 +27,8 @@ export default function Platform({ count, param }) {
 Platform.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
   // Fetch the data for the specified slug
   const res = await fetch(
     `https://api.rawg.io/api/games?key=${process.env.API_KEY}&genres=${
@@ -39,6 +42,7 @@ export async function getServerSideProps(context) {
       data: data.results || data,
       count: data.count || 0,
       param: context?.params?.slug[0],
+      session,
     },
   };
 }

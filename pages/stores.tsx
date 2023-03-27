@@ -4,6 +4,7 @@ import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
 import { IData } from "@/layouts/LayoutCardPages/types";
+import { getSession } from "next-auth/react";
 
 export default function Stores({ count }: IData) {
   const data = useGetCurrentData("stores");
@@ -27,6 +28,8 @@ export default function Stores({ count }: IData) {
 Stores.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps() {
+  const session = await getSession(context);
+
   const res = await fetch(
     `https://api.rawg.io/api/stores?key=${process.env.API_KEY}&page_size=20`
   );
@@ -36,6 +39,7 @@ export async function getServerSideProps() {
     props: {
       data: data.results || data,
       count: data.count || 0,
+      session,
     },
   };
 }
