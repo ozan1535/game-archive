@@ -1,9 +1,13 @@
-import { signIn, getSession } from "next-auth/react";
+import { signIn, getSession, useSession } from "next-auth/react";
 import Image from "next/image";
 import { getLayoutDefault } from "@/layouts/LayoutDefault";
 import styles from "@/styles/Login.module.scss";
 
 export default function Login() {
+  const session = useSession();
+
+  console.log(session, "session");
+
   return (
     <div
       className={styles["Login"]}
