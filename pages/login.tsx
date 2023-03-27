@@ -13,7 +13,7 @@ export default function Login() {
       className={styles["Login"]}
       onClick={() =>
         signIn("google", {
-          callbackUrl: window.origin + "/",
+          // callbackUrl: window.origin + "/",
         })
       }
     >
