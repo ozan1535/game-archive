@@ -136,8 +136,6 @@ export default function Game({ data }) {
 Game.getLayout = getLayoutDefault;
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
   const { slug } = context.query; // get the slug from the query parameters
 
   // Fetch the data for the specified slug
@@ -149,7 +147,6 @@ export async function getServerSideProps(context) {
   return {
     props: {
       data,
-      session,
     },
   };
 }

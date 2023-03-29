@@ -3,13 +3,12 @@ import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { getSession, useSession } from "next-auth/react";
 import styles from "@/styles/Favourites.module.scss";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function Favourites({ data, session }) {
-  console.log(session, "sessiononfav");
+export default function Favourites() {
+  const { data: session } = useSession();
 
-  //const { data: session } = useSession();
-
+  const [data, setData] = useState();
   useEffect(() => {
     const selam = async () => {
       const res = await fetch(
@@ -23,7 +22,7 @@ export default function Favourites({ data, session }) {
         }
       );
       const data = await res.json();
-
+      setData(data);
       console.log(data);
     };
 
@@ -37,7 +36,7 @@ export default function Favourites({ data, session }) {
       </div>
     );
   }
-  if (!data.length || data.error) {
+  if (!data?.length || data?.error) {
     return (
       <div className={styles["Favourites"]}>
         <p> {data?.error?.message || "You don't have any favourite game"}</p>

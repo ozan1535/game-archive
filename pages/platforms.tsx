@@ -28,8 +28,6 @@ export default function Platforms({ count }: IData) {
 Platforms.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
   const res = await fetch(
     `https://api.rawg.io/api/platforms?key=${
       process.env.API_KEY
@@ -41,7 +39,6 @@ export async function getServerSideProps(context) {
     props: {
       data: data.results || data,
       count: data.count || 0,
-      session,
     },
   };
 }
