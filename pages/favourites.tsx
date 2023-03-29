@@ -101,14 +101,12 @@ export async function getServerSideProps(context) {
     return {
       props: {
         data: favourites,
-        session,
       },
     };
   } catch (error) {
     return {
       props: {
         data: error,
-        session,
       },
     };
   }

@@ -27,7 +27,9 @@ export default function Genres({ count }: IData) {
 
 Genres.getLayout = getLayoutCardPages;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
   const res = await fetch(
     `https://api.rawg.io/api/genres?key=${process.env.API_KEY}&page_size=20`
   );

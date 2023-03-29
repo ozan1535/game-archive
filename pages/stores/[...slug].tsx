@@ -27,6 +27,8 @@ export default function Platform({ count, param }) {
 Platform.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
   // Fetch the data for the specified slug
   const res = await fetch(
     `https://api.rawg.io/api/games?key=${process.env.API_KEY}&stores=${

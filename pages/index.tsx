@@ -36,6 +36,7 @@ export default function Home({ count }: IData) {
 Home.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps(context) {
+  const session = await getSession(context);
   // check page=44283 after deploy
   const res = await fetch(
     `https://api.rawg.io/api/games?key=${
