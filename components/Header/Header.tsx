@@ -8,7 +8,6 @@ const headerItems = getHeaderItems();
 
 export function Header() {
   const { data: session } = useSession();
-  console.log(session, "lannn");
 
   return (
     <div className={styles["Header"]}>
