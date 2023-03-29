@@ -16,7 +16,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const { session } = pageProps;
-  console.log(session, "jjajaja");
+  console.log(pageProps, "jjajaja");
 
   const router = useRouter();
 
