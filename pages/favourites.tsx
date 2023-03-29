@@ -3,10 +3,30 @@ import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { getSession, useSession } from "next-auth/react";
 import styles from "@/styles/Favourites.module.scss";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Favourites({ data }) {
   const { data: session } = useSession();
-  console.log(data, "favourite data");
+
+  useEffect(() => {
+    const selam = async () => {
+      const res = await fetch(
+        `https://game-archive-strapi.onrender.com/api/users/${session?.user?.id}?populate=*`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            Authorization: `Bearer ${session?.user?.jwt}`,
+          },
+        }
+      );
+      const data = await res.json();
+
+      console.log(data);
+    };
+
+    console.log(selam());
+  }, [session?.user?.id, session?.user?.jwt]);
 
   if (!session) {
     return (
@@ -34,7 +54,7 @@ export async function getServerSideProps(context) {
 
   try {
     const res = await fetch(
-      `https://game-archive-strapi.onrender.com/api/users/${session?.user?.id}?populate=*`,
+      `${process.env.SERVER_LINK}/api/users/${session?.user?.id}?populate=*`,
       {
         method: "GET",
         headers: {
