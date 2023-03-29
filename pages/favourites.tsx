@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default function Favourites({ data }) {
   const { data: session } = useSession();
+  console.log(data, "favourite data");
 
   if (!session) {
     return (
