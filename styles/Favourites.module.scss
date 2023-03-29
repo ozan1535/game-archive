@@ -1,0 +1,14 @@
+.Favourites {
+  width: 100%;
+  height: 97vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Favourites p,
+.Favourites a {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 5rem;
+}
