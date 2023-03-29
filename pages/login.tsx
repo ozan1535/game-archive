@@ -4,10 +4,6 @@ import { getLayoutDefault } from "@/layouts/LayoutDefault";
 import styles from "@/styles/Login.module.scss";
 
 export default function Login() {
-  const session = useSession();
-
-  console.log(session, "session");
-
   return (
     <div
       className={styles["Login"]}
@@ -37,14 +33,14 @@ Login.getLayout = getLayoutDefault;
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
-  // if (session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {},
