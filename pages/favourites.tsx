@@ -5,8 +5,10 @@ import styles from "@/styles/Favourites.module.scss";
 import Link from "next/link";
 import { useEffect } from "react";
 
-export default function Favourites({ data }) {
-  const { data: session } = useSession();
+export default function Favourites({ data, session }) {
+  console.log(session, "sessiononfav");
+
+  //const { data: session } = useSession();
 
   useEffect(() => {
     const selam = async () => {
