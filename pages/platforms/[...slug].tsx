@@ -42,7 +42,6 @@ export async function getServerSideProps(context) {
       data: data.results || data,
       count: data.count || 0,
       param: context?.params?.slug[0],
-      session,
     },
   };
 }
