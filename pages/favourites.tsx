@@ -29,10 +29,11 @@ Favourites.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  console.log(session, "fewfjifjwojfoiejwf");
 
   try {
     const res = await fetch(
-      `${process.env.SERVER_LINK}/api/users/${session?.user?.id}?populate=*`,
+      `https://game-archive-strapi.onrender.com/api/users/${session?.user?.id}?populate=*`,
       {
         method: "GET",
         headers: {
@@ -65,6 +66,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         data: favourites,
+        session,
       },
     };
   } catch (error) {
