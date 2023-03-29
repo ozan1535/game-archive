@@ -1,9 +1,9 @@
+import { getSession } from "next-auth/react";
 import { Card } from "@/components/Card/Card";
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
-import { getSession } from "next-auth/react";
 
 export default function Platform({ count, param }) {
   const data = useGetCurrentData("games", "developers", param);
