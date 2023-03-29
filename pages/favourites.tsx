@@ -22,8 +22,21 @@ export default function Favourites() {
         }
       );
       const data = await res.json();
-      setData(data);
+      const favourites = data.favourites.map((item) => {
+        return {
+          name: item.gameName,
+          slug: item.gameSlug,
+          id: item.gameId,
+          released: item.gameRelease,
+          rating: item.gameRating,
+          background_image: item.gameImage,
+          genres: item.gameGenres.genres,
+        };
+      });
+
+      setData(favourites);
       console.log(data);
+      console.log(favourites);
     };
 
     console.log(selam());
