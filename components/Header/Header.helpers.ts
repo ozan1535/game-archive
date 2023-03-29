@@ -15,5 +15,8 @@ export function getHeaderItems() {
     {
       title: "Developers",
     },
+    {
+      title: "Favourites",
+    },
   ];
 }
