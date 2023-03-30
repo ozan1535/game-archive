@@ -5,50 +5,7 @@ import styles from "@/styles/Favourites.module.scss";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Favourites() {
-  const { data: session } = useSession();
-
-  const [data, setData] = useState();
-  useEffect(() => {
-    const selam = async () => {
-      const res = await fetch(
-        `https://game-archive-strapi.onrender.com/api/users/${session?.user?.id}?populate=*`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            Authorization: `Bearer ${session?.user?.jwt}`,
-          },
-        }
-      );
-      const data = await res.json();
-      const favourites = data.favourites.map((item) => {
-        return {
-          name: item.gameName,
-          slug: item.gameSlug,
-          id: item.gameId,
-          released: item.gameRelease,
-          rating: item.gameRating,
-          background_image: item.gameImage,
-          genres: item.gameGenres.genres,
-        };
-      });
-
-      setData(favourites);
-      console.log(data);
-      console.log(favourites);
-    };
-
-    console.log(selam());
-  }, [session?.user?.id, session?.user?.jwt]);
-
-  if (!session) {
-    return (
-      <div className={styles["Favourites"]}>
-        <Link href={"/login"}>Sign in to save favourite games</Link>
-      </div>
-    );
-  }
+export default function Favourites({ data }) {
   if (!data?.length || data?.error) {
     return (
       <div className={styles["Favourites"]}>
@@ -66,7 +23,12 @@ export async function getServerSideProps(context) {
   const session = await getSession(context);
   console.log(session, "fewfjifjwojfoiejwf");
 
-  try {
+  return {
+    props: { session },
+  };
+}
+
+/*  try {
     const res = await fetch(
       `${process.env.SERVER_LINK}/api/users/${session?.user?.id}?populate=*`,
       {
@@ -109,5 +71,4 @@ export async function getServerSideProps(context) {
         data: error,
       },
     };
-  }
-}
+  } */

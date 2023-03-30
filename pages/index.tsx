@@ -47,6 +47,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      session,
       data: data?.results || data,
       count: data.count || 0,
     },
