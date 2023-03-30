@@ -25,7 +25,6 @@ export const authOptions: NextAuthOptions = {
         token.jwt = jwt;
         token.id = user.id; */
         token.user = data;
-        console.log(user, account, data, token, "helloo");
       }
 
       return token;

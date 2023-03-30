@@ -4,9 +4,7 @@ import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { Pagination } from "@/components/Pagination/Pagination";
 import styles from "@/styles/Favourites.module.scss";
 
-export default function Favourites({ data, session }) {
-  console.log(data, session, "favourites");
-
+export default function Favourites({ data }) {
   if (!data?.length || data?.error) {
     return (
       <div className={styles["Favourites"]}>
@@ -31,7 +29,6 @@ Favourites.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  console.log(session, "fefef");
 
   if (session?.user) {
     try {
