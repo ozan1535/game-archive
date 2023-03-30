@@ -31,11 +31,12 @@ Favourites.getLayout = getLayoutCardPages;
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  console.log(session, "fefef");
 
   if (session?.user) {
     try {
       const res = await fetch(
-        `${process.env.SERVER_LINK}/api/users/${session?.user?.id}?populate=*`,
+        `${process.env.SERVER_LINK}/api/users/${session?.user?.user?.id}?populate=*`,
         {
           method: "GET",
           headers: {
