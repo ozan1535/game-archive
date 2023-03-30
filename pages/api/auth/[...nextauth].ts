@@ -15,23 +15,27 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     // This method is not invoked when you persist sessions in a database.
-    async jwt({ token, account }) {
+    async jwt({ token, user, account }) {
       if (account) {
         const res = await fetch(
           `${process.env.SERVER_LINK}/api/auth/google/callback?access_token=${account.access_token}`
         );
         const data = await res.json();
-        const { jwt, user } = data;
+        /* const { jwt, user } = data;
         token.jwt = jwt;
-        token.id = user.id;
+        token.id = user.id; */
+        token.user = data;
+        console.log(user, account, data, token, "helloo");
       }
+
       return token;
     },
 
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
-      session.user.jwt = token.jwt as string;
-      session.user.id = token.id as number;
+      /*  session.user.jwt = token.jwt as string;
+      session.user.id = token.id as number; */
+      session.user = token.user;
       return session;
     },
   },
