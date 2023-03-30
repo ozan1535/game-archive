@@ -36,7 +36,6 @@ export async function getServerSideProps(context) {
     }&page_size=20&page=${context.query.page || 1}`
   );
   const data = await res.json();
-  console.log(data, "kafdksfaks");
 
   return {
     props: {
