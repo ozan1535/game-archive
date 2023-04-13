@@ -27,6 +27,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         value={{
           fallback: {
             [`/api/games/${router.query.page || 1}/`]: pageProps.data,
+            [`/api/server/users/${session?.user?.user?.id}`]: pageProps.data,
             [`/api/platforms/${router.query.page || 1}/`]: pageProps.data,
             [`/api/genres/${router.query.page || 1}/`]: pageProps.data,
             [`/api/stores/${router.query.page || 1}/`]: pageProps.data,
@@ -42,7 +43,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
               pageProps.param
             }`]: pageProps.data,
           },
-          fetcher: (url) => fetch(url).then((r) => r.json()),
+          fetcher: (url) => fetch(url, { method: "GET" }).then((r) => r.json()),
         }}
       >
         {getLayout(<Component {...pageProps} />)}
