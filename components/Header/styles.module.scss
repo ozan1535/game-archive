@@ -19,6 +19,7 @@
 
 .Header--Menu {
   font-size: 1.5rem;
+  display: none;
 }
 
 @media screen and (max-width: 1024px) {
@@ -49,5 +50,8 @@
   }
   .Header__Responsive .Header__Pages a {
     padding: 0.25rem;
+  }
+  .Header--Menu {
+    display: block;
   }
 }
