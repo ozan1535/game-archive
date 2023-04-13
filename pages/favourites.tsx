@@ -2,10 +2,13 @@ import { getSession } from "next-auth/react";
 import { Card } from "@/components/Card/Card";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { Pagination } from "@/components/Pagination/Pagination";
+import { useGetFavourites } from "@/layouts/LayoutCardPages/hooks/useGetFavourites";
 import styles from "@/styles/Favourites.module.scss";
 
 export default function Favourites({ data }) {
-  if (!data?.length || data?.error) {
+  const { currentUser } = useGetFavourites();
+
+  if (!data?.favourites || data?.error) {
     return (
       <div className={styles["Favourites"]}>
         <p> {data?.error?.message || "You don't have any favourite game"}</p>
@@ -13,9 +16,21 @@ export default function Favourites({ data }) {
     );
   }
 
+  const favourites = currentUser?.favourites.map((item) => {
+    return {
+      name: item.gameName,
+      slug: item.gameSlug,
+      id: item.gameId,
+      released: item.gameRelease,
+      rating: item.gameRating,
+      background_image: item.gameImage,
+      genres: item.gameGenres.genres,
+    };
+  });
+
   return (
     <>
-      <Card data={data} />
+      <Card data={favourites} />
       {data.length > 20 && (
         <div className={"layoutCardPages__Pagination"}>
           <Pagination count={data.length} />
@@ -49,20 +64,8 @@ export async function getServerSideProps(context) {
         throw data;
       }
 
-      const favourites = data.favourites.map((item) => {
-        return {
-          name: item.gameName,
-          slug: item.gameSlug,
-          id: item.gameId,
-          released: item.gameRelease,
-          rating: item.gameRating,
-          background_image: item.gameImage,
-          genres: item.gameGenres.genres,
-        };
-      });
-
       return {
-        props: { session, data: favourites },
+        props: { session, data },
       };
     } catch (error) {
       return { props: { session, data: error } };
