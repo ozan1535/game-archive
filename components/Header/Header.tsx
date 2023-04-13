@@ -1,4 +1,7 @@
+import { AiOutlineMenu } from "react-icons/ai";
+import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { getHeaderItems } from "./Header.helpers";
@@ -8,15 +11,22 @@ const headerItems = getHeaderItems();
 
 export function Header() {
   const { data: session } = useSession();
+  const [isMenuResponsive, setIsMenuResponsive] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsMenuResponsive(false);
+  }, [router.asPath]);
 
   return (
-    <div className={styles["Header"]}>
+    <div className={styles[isMenuResponsive ? "Header__Responsive" : "Header"]}>
       <div style={{ fontFamily: "monospace", fontSize: "1.25rem" }}>
         <Link href="/" className={styles["Header__Link"]}>
           Game Archive
         </Link>
       </div>
-      <div>
+      <div className={styles["Header__Pages"]}>
         {headerItems.map((item, index) => {
           return (
             <Link
@@ -29,7 +39,7 @@ export function Header() {
           );
         })}
       </div>
-      <div>
+      <div className={styles["Header__Login"]}>
         {session ? (
           <Link
             href="/login"
@@ -44,6 +54,13 @@ export function Header() {
           </Link>
         )}
       </div>
+
+      <AiOutlineMenu
+        onClick={() => {
+          setIsMenuResponsive((prev) => !prev);
+        }}
+        className={styles["Header--Menu"]}
+      />
     </div>
   );
 }
