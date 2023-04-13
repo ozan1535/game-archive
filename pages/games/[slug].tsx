@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { getLayoutDefault } from "@/layouts/LayoutDefault";
-import styles from "@/styles/Game.module.scss";
 import { getSession } from "next-auth/react";
+import { getLayoutDefault } from "@/layouts/LayoutDefault";
+import { SingleGameVideo } from "@/components/SingleGame/SingleGameVideo";
+import { SingleGamePlatform } from "@/components/SingleGame/SingleGamePlatform";
+import styles from "@/styles/Game.module.scss";
 
 export default function Game({ data }) {
   return (
@@ -10,34 +12,14 @@ export default function Game({ data }) {
         <b>{data.name}</b>
       </div>
 
-      <div className={styles["Game__Media"]}>
-        <video width="720" height="500" controls>
-          <source src={data.clip?.clip} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
+      <SingleGameVideo data={data} />
 
       <div className={styles["Game__Description"]}>
         <b>About</b>
         <div dangerouslySetInnerHTML={{ __html: data.description }}></div>
       </div>
       <div className={styles["Game__Info"]}>
-        <div className={styles["Game__Platforms"]}>
-          <p> Platforms</p>
-          <div>
-            {data.platforms.map((platform, index) => (
-              <>
-                <span>{`${index ? ", " : ""}`}</span>
-                <Link
-                  href={`/platforms/${platform.platform.id}/${platform.platform.slug}`}
-                  style={{ textDecoration: "underline" }}
-                >
-                  {platform.platform.name}
-                </Link>
-              </>
-            ))}
-          </div>
-        </div>
+        <SingleGamePlatform data={data.platforms} />
         <div className={styles["Game__Metascore"]}>
           <p> Metascore</p>
           <div>
