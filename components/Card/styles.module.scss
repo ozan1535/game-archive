@@ -127,3 +127,12 @@
 .Card__Information__Genres a:hover {
   color: rgb(110, 174, 202);
 }
+
+.Card__Heart {
+  position: absolute;
+  right: 0;
+  padding: 0.5rem;
+  color: green;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
