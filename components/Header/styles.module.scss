@@ -16,3 +16,38 @@
 .Header__Link:hover {
   color: rgb(110, 174, 202);
 }
+
+.Header--Menu {
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .Header .Header__Pages,
+  .Header__Login {
+    display: none;
+  }
+
+  .Header__Responsive {
+    position: fixed;
+    width: 100%;
+    height: 12rem;
+    background: rgb(16, 55, 99);
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    opacity: 0.9;
+    z-index: 1000;
+  }
+
+  .Header__Responsive .Header__Login {
+    display: block;
+  }
+  .Header__Responsive .Header__Pages {
+    display: flex;
+    flex-direction: column;
+  }
+  .Header__Responsive .Header__Pages a {
+    padding: 0.25rem;
+  }
+}
