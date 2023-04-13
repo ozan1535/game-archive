@@ -1,0 +1,52 @@
+.Dialog {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(96, 211, 127, 0.5);
+  font-size: 1rem;
+}
+
+.Dialog__Container {
+  width: 30rem;
+  height: 10rem;
+  background-color: white;
+  border-radius: 1rem;
+}
+
+.Dialog__Container__Text {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Dialog__Container__Button {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.Dialog__Container__Button button {
+  background-color: rgb(40, 70, 206);
+  width: 5rem;
+  height: 1.5rem;
+  border: none;
+  outline: none;
+  margin: 0 1rem;
+  font-size: 1rem;
+  color: white;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.Dialog__Container__Button a {
+  color: rgb(40, 70, 206);
+}
