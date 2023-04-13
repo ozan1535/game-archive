@@ -40,6 +40,10 @@
 .Game__Media {
   grid-area: media;
 }
+.Game__Media video {
+  width: 100%;
+  height: auto;
+}
 
 .Game__Description {
   grid-area: description;
@@ -113,5 +117,11 @@
   margin-bottom: 1rem;
 }
 
-.bal {
+@media screen and (max-width: 1024px) {
+  .Game__Description,
+  .Game__Tag,
+  .Game__Website,
+  .Game__Info {
+    width: 90%;
+  }
 }
