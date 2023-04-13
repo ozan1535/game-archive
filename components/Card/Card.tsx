@@ -1,14 +1,29 @@
 import Link from "next/link";
 import Image from "next/image";
-import { IData } from "@/layouts/LayoutCardPages/types";
+import { useState } from "react";
 import { CardInformationKeyAndValue } from "./CardInformationKeyAndValue";
+import { IData } from "@/layouts/LayoutCardPages/types";
+import { useGetFavourites } from "@/layouts/LayoutCardPages/hooks/useGetFavourites";
+import { Dialog } from "../Dialog/Dialog";
+import { CardHeart } from "./CardHeart";
+import { CardGenres } from "./Genres/CardGenres";
 import styles from "./styles.module.scss";
 
 export function Card({ data }: IData) {
+  const { currentUser } = useGetFavourites();
+
+  const [showDialog, setShowDialog] = useState(false);
+
   return (
     <div className="layoutCardPages__Cards">
+      {showDialog && <Dialog setShowDialog={setShowDialog} />}
       {data?.map((item, index) => (
         <div className={styles["Card"]} key={index}>
+          <CardHeart
+            data={item}
+            favouriteItems={currentUser?.favourites}
+            setShowDialog={setShowDialog}
+          />
           <Image
             alt="image"
             src={
@@ -20,7 +35,6 @@ export function Card({ data }: IData) {
             width={328}
             height={160}
           />
-
           <div className={styles["Card__Information"]}>
             <div className={styles["Card__Information__Platform"]}>
               platforms
@@ -36,42 +50,7 @@ export function Card({ data }: IData) {
                 color="white"
               />
             </div>
-            <div className={styles["Card__Information__Genres"]}>
-              <div>Genres:</div>
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent: "flex-end",
-                }}
-              >
-                {item.genres.length ? (
-                  item.genres?.map((genre, index) => (
-                    <>
-                      <div
-                        style={{
-                          color: "white",
-                        }}
-                      >
-                        <span>{`${index ? ", " : ""}`}</span>
-                        <Link
-                          href={`/genres/${genre.id}/${genre.name}`}
-                          target="_blank"
-                          style={{
-                            textDecoration: "underline",
-                            transition: "0.75s",
-                          }}
-                        >
-                          {genre.name}
-                        </Link>
-                      </div>
-                    </>
-                  ))
-                ) : (
-                  <CardInformationKeyAndValue name="Not found" color="white" />
-                )}
-              </div>
-            </div>
+            <CardGenres item={item} />
             <div className={styles["Card__Information__Rating"]}>
               <div>Rating:</div>
               <CardInformationKeyAndValue
