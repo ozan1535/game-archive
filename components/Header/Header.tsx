@@ -21,7 +21,7 @@ export function Header() {
 
   return (
     <div className={styles[isMenuResponsive ? "Header__Responsive" : "Header"]}>
-      <div style={{ fontFamily: "monospace", fontSize: "1.25rem" }}>
+      <div className={styles["Header__Title"]}>
         <Link href="/" className={styles["Header__Link"]}>
           Game Archive
         </Link>
