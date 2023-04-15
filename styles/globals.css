@@ -93,10 +93,12 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: var(--global-bg);
+  background: linear-gradient(
+    109.6deg,
+    rgb(20, 30, 48) 11.2%,
+    rgb(36, 59, 85) 91.1%
+  );
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  /* background-image: linear-gradient(to right bottom, #a8edea 0%, #fed6e3 100%); */
-  /* background-image: var(--global-bg); */
 }
 
 a {
