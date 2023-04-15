@@ -21,7 +21,10 @@
   font-size: 1.5rem;
   display: none;
 }
-
+.Header__Title {
+  font-family: monospace;
+  font-size: 1.25rem;
+}
 @media screen and (max-width: 1024px) {
   .Header .Header__Pages,
   .Header__Login {
@@ -37,9 +40,12 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    opacity: 0.9;
-    padding-top: 1rem;
+    padding-top: 0.75rem;
     z-index: 1000;
+  }
+
+  .Header__Responsive .Header__Title {
+    display: none;
   }
 
   .Header__Responsive .Header__Login {
@@ -48,6 +54,9 @@
   .Header__Responsive .Header__Pages {
     display: flex;
     flex-direction: column;
+    background-color: rgba(255, 255, 255, 1);
+    color: rgb(16, 55, 99);
+    border-radius: 5px;
   }
   .Header__Responsive .Header__Pages a {
     padding: 0.25rem;
