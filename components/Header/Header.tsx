@@ -54,7 +54,6 @@ export function Header() {
           </Link>
         )}
       </div>
-
       <AiOutlineMenu
         onClick={() => {
           setIsMenuResponsive((prev) => !prev);
