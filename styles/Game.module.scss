@@ -6,7 +6,9 @@
     "gameName"
     "media"
     "description"
-    "info";
+    "info"
+    "tag"
+    "website";
   grid-template-rows: 1fr;
   grid-template-columns: 1fr;
   transition: 2s;
@@ -17,7 +19,7 @@
 }
 
 .Game a:hover {
-  color: rgb(16, 55, 99);
+  color: rgb(147, 253, 200);
 }
 
 .Game div {
@@ -25,16 +27,18 @@
 }
 
 .Game > div > p {
-  color: rgb(16, 55, 99);
+  color: rgb(147, 253, 200);
 }
 .Game > div > b {
-  color: rgb(16, 55, 99);
+  color: rgb(147, 253, 200);
 }
 
 .Game__Name {
   grid-area: gameName;
   font-size: 2rem;
   margin-top: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .Game__Media {
@@ -72,7 +76,7 @@
 }
 
 .Game__Info div p {
-  color: rgb(16, 55, 99);
+  color: rgb(147, 253, 200);
 }
 
 .Game__Info div div {
@@ -106,6 +110,7 @@
 .Game__Tag {
   width: 40%;
   margin-bottom: 1rem;
+  grid-area: tag;
 }
 
 .Game__Tag div,
@@ -115,6 +120,7 @@
 .Game__Website {
   width: 40%;
   margin-bottom: 1rem;
+  grid-area: website;
 }
 
 @media screen and (max-width: 1024px) {
