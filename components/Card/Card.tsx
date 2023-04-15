@@ -24,17 +24,22 @@ export function Card({ data }: IData) {
             favouriteItems={currentUser?.favourites}
             setShowDialog={setShowDialog}
           />
-          <Image
-            alt="image"
-            src={
-              item.background_image?.includes("media.rawg.io")
-                ? item.background_image
-                : "/not-found.png"
-            }
-            className={styles["Card__Picture"]}
-            width={328}
-            height={160}
-          />
+          <Link
+            href={`/games/${item.slug}`}
+            style={{ width: "328px", height: "160px" }}
+          >
+            <Image
+              alt="image"
+              src={
+                item.background_image?.includes("media.rawg.io")
+                  ? item.background_image
+                  : "/not-found.png"
+              }
+              className={styles["Card__Picture"]}
+              width={328}
+              height={160}
+            />
+          </Link>
           <div className={styles["Card__Information"]}>
             <div className={styles["Card__Information__Platform"]}>
               platforms
