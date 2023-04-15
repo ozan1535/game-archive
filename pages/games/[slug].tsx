@@ -12,7 +12,7 @@ export default function Game({ data }) {
         <b>{data.name}</b>
       </div>
 
-      <SingleGameVideo data={data} />
+      {data.clip?.clip && <SingleGameVideo data={data} />}
 
       <div className={styles["Game__Description"]}>
         <b>About</b>
