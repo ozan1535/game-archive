@@ -22,6 +22,7 @@ export function Pagination({ count }: { count: number }) {
       previousLabel={"←"}
       nextLabel={"→"}
       pageCount={divideContentNumbers + (divideContentNumbersRemainder ? 1 : 0)}
+      marginPagesDisplayed={1}
       onPageChange={handlePageClick}
       containerClassName={"pagination"}
       previousLinkClassName={"pagination__link"}

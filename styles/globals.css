@@ -115,7 +115,7 @@ a {
 .layoutCardPages__Pagination {
   grid-area: paginataion;
   justify-self: center;
-  padding: 3rem 0;
+  padding: 1rem 0;
 }
 
 .pagination {
@@ -129,12 +129,12 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 8px;
   border-radius: 5px;
   border: 1px solid #6cc99c;
   color: #6cc99c;
-  min-width: 50px;
-  min-height: 50px;
+  min-width: 1rem;
+  min-height: 0.5rem;
 }
 
 .pagination li {
@@ -190,7 +190,6 @@ a {
   }
 
   .pagination a {
-    padding: 3px;
     min-width: 0;
   }
 
