@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardInformationKeyAndValue } from "./CardInformationKeyAndValue";
 import { IData } from "@/layouts/LayoutCardPages/types";
 import { useGetFavourites } from "@/layouts/LayoutCardPages/hooks/useGetFavourites";
@@ -8,11 +8,14 @@ import { Dialog } from "../Dialog/Dialog";
 import { CardHeart } from "./CardHeart";
 import { CardGenres } from "./Genres/CardGenres";
 import styles from "./styles.module.scss";
-
-export function Card({ data }: IData) {
-  const { currentUser } = useGetFavourites();
-
+export function Card({ data, setUpdatedData = null }: IData) {
+  const { favourites, fetchFavouriteItems } = useGetFavourites();
   const [showDialog, setShowDialog] = useState(false);
+  useEffect(() => {
+    if (setUpdatedData) {
+      setUpdatedData(favourites);
+    }
+  }, [favourites, setUpdatedData]);
 
   return (
     <div className="layoutCardPages__Cards">
@@ -21,8 +24,9 @@ export function Card({ data }: IData) {
         <div className={styles["Card"]} key={index}>
           <CardHeart
             data={item}
-            favouriteItems={currentUser?.favourites}
+            favouriteItems={favourites}
             setShowDialog={setShowDialog}
+            fetchFavouriteItems={fetchFavouriteItems}
           />
           <Link
             href={`/games/${item.slug}`}
