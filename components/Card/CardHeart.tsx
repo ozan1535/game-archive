@@ -1,84 +1,59 @@
 import { useSession } from "next-auth/react";
+import { deleteField, doc, setDoc, updateDoc } from "firebase/firestore";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import {
-  editFavouriteItemData,
-  getFavouriteGameData,
-} from "@/layouts/LayoutCardPages/helpers";
-import { useGetFavourites } from "@/layouts/LayoutCardPages/hooks/useGetFavourites";
-import { useHttpRequest } from "@/layouts/LayoutDefault/hooks/useHttpRequest";
+import { firestoreDatabase } from "@/services/firebase";
 import styles from "./styles.module.scss";
 
-export function CardHeart({ data, favouriteItems, setShowDialog }) {
+export function CardHeart({
+  data,
+  favouriteItems,
+  setShowDialog,
+  fetchFavouriteItems,
+}) {
   const { data: session } = useSession();
-  const sendRequest = useHttpRequest();
-  const { favourites, currentUser, mutateCurrentUser } = useGetFavourites();
 
-  const favouriteItemRequest = (option: string, game: Record<string, any>) => {
+  const favouriteItemRequest = async (
+    option: string,
+    game: Record<string, any>
+  ) => {
     if (!session) {
       setShowDialog(true);
       return;
     }
-    const filteredFavourites = favourites?.data.map((item) => {
-      return {
-        favouriteItemId: item.id,
-        gameId: item.attributes.gameId,
-      };
-    });
-
-    if (option === "add") {
-      const isGameOnServer = filteredFavourites?.some(
-        (item) => item.gameId.toString() === game.id.toString()
-      );
-
-      if (isGameOnServer) {
-        const favouriteItemId = filteredFavourites.filter(
-          (item) => item.gameId.toString() === game.id.toString()
-        )[0].favouriteItemId;
-        const favouriteItemsIds = currentUser.favourites.map((item) => {
-          return {
-            id: item.id,
-          };
-        });
-
-        const favouriteGameData = editFavouriteItemData(
-          [...favouriteItemsIds, { id: favouriteItemId }],
-          session
+    switch (option) {
+      case "add":
+        await setDoc(
+          doc(firestoreDatabase, "favourites", `${session.user?.email}`),
+          {
+            [game.slug]: {
+              gameName: game.name,
+              gameSlug: game.slug,
+              gameId: game.id.toString(),
+              gameImage: game.background_image,
+              gameRelease: game.released,
+              gameRating: game.rating,
+              gameGenres: {
+                genres: game.genres,
+              },
+            },
+          },
+          { merge: true }
         );
-
-        sendRequest(
-          `/api/server/users/${session?.user?.user?.id}`,
-          favouriteGameData,
-          "PUT"
+        await fetchFavouriteItems();
+        break;
+      case "remove":
+        const favouriteItemRef = doc(
+          firestoreDatabase,
+          "favourites",
+          `${session.user?.email}`
         );
-        mutateCurrentUser(currentUser);
-      } else {
-        const favouriteGameData = getFavouriteGameData(game, session);
-        sendRequest("/api/server/favourites", favouriteGameData, "POST");
-        mutateCurrentUser(currentUser);
-        console.log(favouriteGameData, "add new");
-      }
-    } else if (option === "remove") {
-      const favouriteItemsIds = currentUser.favourites
-        .filter((item) => item.gameId.toString() !== game.id.toString())
-        .map((item) => {
-          return {
-            id: item.id,
-          };
+        await updateDoc(favouriteItemRef, {
+          [game.slug]: deleteField(),
         });
-
-      const favouriteGameData = editFavouriteItemData(
-        favouriteItemsIds,
-        session
-      );
-
-      sendRequest(
-        `/api/server/users/${session?.user?.user?.id}`,
-        favouriteGameData,
-        "PUT"
-      );
-      mutateCurrentUser(currentUser);
+        await fetchFavouriteItems();
+      default:
+        break;
     }
-    mutateCurrentUser(currentUser);
   };
 
   return (

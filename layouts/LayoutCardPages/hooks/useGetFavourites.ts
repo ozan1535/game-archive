@@ -1,15 +1,31 @@
+import { firestoreDatabase } from "@/services/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
-import useSWR from "swr";
+import { useCallback, useEffect, useState } from "react";
+import { IData } from "../types";
 
 export function useGetFavourites() {
   const { data: session } = useSession();
+  const [favourites, setFavourites] = useState<IData[]>();
+  const fetchFavouriteItems = useCallback(async () => {
+    const docRef = doc(
+      firestoreDatabase,
+      "favourites",
+      `${session?.user?.email}`
+    );
 
-  const { data: favourites } = useSWR("/api/server/favourites");
-  const {
-    data: currentUser,
-    mutate: mutateCurrentUser,
-    isValidating,
-  } = useSWR(`/api/server/users/${session?.user?.user?.id}`);
+    const docSnap = await getDoc(docRef);
 
-  return { favourites, currentUser, mutateCurrentUser, isValidating };
+    if (docSnap.exists()) {
+      setFavourites(
+        Object.values(docSnap.data()).sort((a, b) =>
+          a.gameName.localeCompare(b.gameName)
+        )
+      );
+    }
+  }, [session?.user?.email]);
+  useEffect(() => {
+    fetchFavouriteItems();
+  }, [fetchFavouriteItems]);
+  return { favourites, fetchFavouriteItems };
 }

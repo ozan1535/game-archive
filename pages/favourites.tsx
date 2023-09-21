@@ -1,22 +1,24 @@
-import { getSession } from "next-auth/react";
+import { useState } from "react";
 import { Card } from "@/components/Card/Card";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { useGetFavourites } from "@/layouts/LayoutCardPages/hooks/useGetFavourites";
+import { IData } from "@/layouts/LayoutCardPages/types";
 import styles from "@/styles/Favourites.module.scss";
 
-export default function Favourites({ data }) {
-  const { currentUser } = useGetFavourites();
+export default function Favourites() {
+  const { favourites } = useGetFavourites();
+  const [updatedData, setUpdatedData] = useState<IData[]>([]);
 
-  if (!data?.favourites || data?.error) {
+  if (!favourites && !updatedData) {
     return (
       <div className={styles["Favourites"]}>
-        <p> {data?.error?.message || "You don't have any favourite game"}</p>
+        <p> You don&apos;t have any favourite game</p>
       </div>
     );
   }
 
-  const favourites = currentUser?.favourites.map((item) => {
+  const favouriteItems = (updatedData || favourites)?.map((item) => {
     return {
       name: item.gameName,
       slug: item.gameSlug,
@@ -30,10 +32,10 @@ export default function Favourites({ data }) {
 
   return (
     <>
-      <Card data={favourites} />
-      {data.length > 20 && (
+      <Card data={favouriteItems} setUpdatedData={setUpdatedData} />
+      {(updatedData || favourites).length > 20 && (
         <div className={"layoutCardPages__Pagination"}>
-          <Pagination count={data.length} />
+          <Pagination count={(updatedData || favourites).length} />
         </div>
       )}
     </>
@@ -42,35 +44,35 @@ export default function Favourites({ data }) {
 
 Favourites.getLayout = getLayoutCardPages;
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
+// export async function getServerSideProps(context) {
+//   const session = await getSession(context);
 
-  if (session?.user) {
-    try {
-      const res = await fetch(
-        `${process.env.SERVER_LINK}/api/users/${session?.user?.user?.id}?populate=*`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            Authorization: `Bearer ${session?.user?.jwt}`,
-          },
-        }
-      );
+//   if (session?.user) {
+//     try {
+//       const res = await fetch(
+//         `${process.env.SERVER_LINK}/api/users/${session?.user?.user?.id}?populate=*`,
+//         {
+//           method: "GET",
+//           headers: {
+//             "Content-Type": "application/json; charset=utf-8",
+//             Authorization: `Bearer ${session?.user?.jwt}`,
+//           },
+//         }
+//       );
 
-      const data = await res.json();
+//       const data = await res.json();
 
-      if (!res.ok) {
-        throw data;
-      }
+//       if (!res.ok) {
+//         throw data;
+//       }
 
-      return {
-        props: { session, data },
-      };
-    } catch (error) {
-      return { props: { session, data: error } };
-    }
-  } else {
-    return { props: { session } };
-  }
-}
+//       return {
+//         props: { session, data },
+//       };
+//     } catch (error) {
+//       return { props: { session, data: error } };
+//     }
+//   } else {
+//     return { props: { session } };
+//   }
+// }
