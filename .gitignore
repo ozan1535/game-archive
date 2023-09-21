@@ -29,8 +29,7 @@ yarn-error.log*
 .env
 .env*.local
 .env*.production
-/services
-service-account.json
+/service-account
 # vercel
 .vercel
 
