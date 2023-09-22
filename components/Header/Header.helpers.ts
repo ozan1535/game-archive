@@ -1,9 +1,6 @@
 export function getHeaderItems() {
   return [
     {
-      title: "/",
-    },
-    {
       title: "Platforms",
     },
     {

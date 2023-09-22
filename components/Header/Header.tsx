@@ -34,7 +34,7 @@ export function Header() {
               key={index}
               className={styles["Header__Link"]}
             >
-              {item.title === "/" ? "Home" : item.title}
+              {item.title}
             </Link>
           );
         })}
