@@ -7,11 +7,10 @@ import Link from "next/link";
 import { getHeaderItems } from "./Header.helpers";
 import styles from "./styles.module.scss";
 
-const headerItems = getHeaderItems();
-
 export function Header() {
   const { data: session } = useSession();
   const [isMenuResponsive, setIsMenuResponsive] = useState(false);
+  const headerItems = getHeaderItems();
 
   const router = useRouter();
 
@@ -21,10 +20,18 @@ export function Header() {
 
   return (
     <div className={styles[isMenuResponsive ? "Header__Responsive" : "Header"]}>
-      <div className={styles["Header__Title"]}>
-        <Link href="/" className={styles["Header__Link"]}>
-          Game Archive
-        </Link>
+      <div className={styles["Header__Title__Container"]}>
+        <div className={styles["Header__Title"]}>
+          <Link href="/" className={styles["Header__Link"]}>
+            Game Archive
+          </Link>
+        </div>
+        <AiOutlineMenu
+          onClick={() => {
+            setIsMenuResponsive((prev) => !prev);
+          }}
+          className={styles["Header--Menu"]}
+        />
       </div>
       <div className={styles["Header__Pages"]}>
         {headerItems.map((item, index) => {
@@ -33,6 +40,12 @@ export function Header() {
               href={`/${item.title.toLowerCase()}`}
               key={index}
               className={styles["Header__Link"]}
+              style={{
+                color:
+                  router.asPath.split("/")[1] === item.title.toLowerCase()
+                    ? "rgb(110, 174, 202)"
+                    : "",
+              }}
             >
               {item.title}
             </Link>
@@ -46,20 +59,14 @@ export function Header() {
             className={styles["Header__Link"]}
             onClick={() => signOut({ callbackUrl: "/login" })}
           >
-            Sign out
+            Log out
           </Link>
         ) : (
           <Link href="/login" className={styles["Header__Link"]}>
-            Login
+            Log in
           </Link>
         )}
       </div>
-      <AiOutlineMenu
-        onClick={() => {
-          setIsMenuResponsive((prev) => !prev);
-        }}
-        className={styles["Header--Menu"]}
-      />
     </div>
   );
 }
