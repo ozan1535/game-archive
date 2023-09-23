@@ -70,13 +70,7 @@ export default function Game({ data }) {
             {data.publishers.map((publisher, index) => (
               <>
                 <span>{`${index ? ", " : ""}`}</span>
-                <Link
-                  href="/hello"
-                  target="_blank"
-                  style={{ textDecoration: "underline" }}
-                >
-                  {publisher.name}
-                </Link>
+                {publisher.name}
               </>
             ))}
           </div>
@@ -88,13 +82,7 @@ export default function Game({ data }) {
           {data.tags.map((tag, index) => (
             <>
               <span>{`${index ? ", " : ""}`}</span>
-              <Link
-                href="/hello"
-                target="_blank"
-                style={{ textDecoration: "underline" }}
-              >
-                {tag.name}
-              </Link>
+              {tag.name}
             </>
           ))}
         </div>
