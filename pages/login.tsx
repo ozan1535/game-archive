@@ -21,7 +21,7 @@ export default function Login() {
           width={25}
         />
         <span className={styles["Login__Button__Span"]}>
-          Continue with Google
+          Log in with Google
         </span>
       </button>
     </div>
