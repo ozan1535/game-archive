@@ -15,6 +15,7 @@ export function Pagination({ count }: { count: number }) {
 
     // https://nextjs.org/docs/routing/shallow-routing
     router.push(url, undefined, { shallow: true });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
   return (
