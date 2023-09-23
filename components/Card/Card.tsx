@@ -45,9 +45,6 @@ export function Card({ data, setUpdatedData = null }: IData) {
             />
           </Link>
           <div className={styles["Card__Information"]}>
-            <div className={styles["Card__Information__Platform"]}>
-              platforms
-            </div>
             <div className={styles["Card__Information__Name"]}>
               <Link href={`/games/${item.slug}`}>{item.name}</Link>
             </div>

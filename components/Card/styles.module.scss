@@ -26,22 +26,15 @@
   grid-area: info;
   display: grid;
   grid-template-areas:
-    "platform platform"
     "gameName gameName"
     "release release"
     "genres genres"
     "rating rating";
-  grid-template-rows: 0.25fr 0.4fr auto;
+  grid-template-rows: 0.4fr auto;
   grid-template-columns: 0.4fr 1fr;
   padding: 0 0.75rem;
 }
 
-.Card__Information__Platform {
-  grid-area: platform;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
 .Card__Information__Name {
   grid-area: gameName;
