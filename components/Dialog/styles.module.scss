@@ -8,8 +8,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(96, 211, 127, 0.5);
+  background-color: rgba(90, 135, 193, 0.5);
   font-size: 1rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .Dialog__Container {
@@ -20,33 +21,39 @@
 }
 
 .Dialog__Container__Text {
+  b {
+    color: rgb(40, 70, 206);
+    padding: 0.25rem 0;
+  }
   width: 100%;
-  height: 80%;
+  height: 70%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  padding: 1rem;
 }
 .Dialog__Container__Button {
   width: 100%;
-  height: 20%;
+  height: 30%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-bottom: 3rem;
 }
 
 .Dialog__Container__Button button {
-  background-color: rgb(40, 70, 206);
-  width: 5rem;
-  height: 1.5rem;
   border: none;
   outline: none;
-  margin: 0 1rem;
-  font-size: 1rem;
-  color: white;
-  border-radius: 1rem;
+  font-size: 1.25rem;
+  background-color: transparent;
   cursor: pointer;
+  color: rgb(40, 70, 206);
 }
 
 .Dialog__Container__Button a {
-  color: rgb(40, 70, 206);
+  background-color: rgb(40, 70, 206);
+  color: white;
+  border-radius: 1rem;
+  padding: 0.25rem 0.75rem;
+  margin: 0 1rem;
 }

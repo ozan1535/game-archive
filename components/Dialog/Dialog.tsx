@@ -6,11 +6,13 @@ export function Dialog({ setShowDialog }) {
     <div className={styles["Dialog"]}>
       <div className={styles["Dialog__Container"]}>
         <div className={styles["Dialog__Container__Text"]}>
-          You should Sign In in order to add favourite games
+          <b>Level Up!</b>
+          In order to add this item to your favourites and enjoy the website,
+          please log in.
         </div>
         <div className={styles["Dialog__Container__Button"]}>
-          <Link href="/login">Sign In</Link>
           <button onClick={() => setShowDialog(false)}>Okay</button>
+          <Link href="/login">Log in</Link>
         </div>
       </div>
     </div>
