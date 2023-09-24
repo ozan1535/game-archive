@@ -43,6 +43,8 @@
 
 .Game__Media {
   grid-area: media;
+  margin: 0 auto;
+  object-fit: cover;
 }
 .Game__Media video {
   width: 100%;

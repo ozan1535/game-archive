@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import { getLayoutDefault } from "@/layouts/LayoutDefault";
 import { SingleGameVideo } from "@/components/SingleGame/SingleGameVideo";
 import { SingleGamePlatform } from "@/components/SingleGame/SingleGamePlatform";
+import Image from "next/image";
 import styles from "@/styles/Game.module.scss";
 
 export default function Game({ data }) {
@@ -12,7 +13,21 @@ export default function Game({ data }) {
         <b>{data.name}</b>
       </div>
 
-      {data.clip?.clip && <SingleGameVideo data={data} />}
+      {data.clip?.clip ? (
+        <SingleGameVideo data={data} />
+      ) : (
+        <Image
+          alt="image"
+          src={
+            data.background_image?.includes("media.rawg.io")
+              ? data.background_image
+              : "/not-found.png"
+          }
+          className={styles["Game__Media"]}
+          width={700}
+          height={300}
+        />
+      )}
 
       <div className={styles["Game__Description"]}>
         <b>About</b>
@@ -23,80 +38,92 @@ export default function Game({ data }) {
         <div className={styles["Game__Metascore"]}>
           <p> Metascore</p>
           <div>
-            <span>{data.metacritic || "?"}</span>
+            <span>{data.metacritic || "-"}</span>
           </div>
         </div>
         <div className={styles["Game__Genres"]}>
           <p> Genre</p>
           <div>
-            {data.genres.map((genre, index) => (
-              <>
-                <span>{`${index ? ", " : ""}`}</span>
-                <Link
-                  href={`/genres/${genre.id}/${genre.slug}`}
-                  style={{ textDecoration: "underline" }}
-                >
-                  {genre.name}
-                </Link>
-              </>
-            ))}
+            {data.genres.length
+              ? data.genres.map((genre, index) => (
+                  <>
+                    <span>{`${index ? ", " : ""}`}</span>
+                    <Link
+                      href={`/genres/${genre.id}/${genre.slug}`}
+                      style={{ textDecoration: "underline" }}
+                    >
+                      {genre.name}
+                    </Link>
+                  </>
+                ))
+              : "-"}
           </div>
         </div>
         <div className={styles["Game__Release"]}>
           <p>Release date</p>
           <div>
-            <span>{data.released}</span>
+            <span>{data.released || "-"}</span>
           </div>
         </div>
         <div className={styles["Game__Developer"]}>
           <p>Developer</p>
           <div>
-            {data.developers.map((developer, index) => (
-              <>
-                <span>{`${index ? ", " : ""}`}</span>
-                <Link
-                  href={`/developers/${developer.id}/${developer.slug}`}
-                  style={{ textDecoration: "underline" }}
-                >
-                  {developer.name}
-                </Link>
-              </>
-            ))}
+            {data.developers.length
+              ? data.developers.map((developer, index) => (
+                  <>
+                    <span>{`${index ? ", " : ""}`}</span>
+                    <Link
+                      href={`/developers/${developer.id}/${developer.slug}`}
+                      style={{ textDecoration: "underline" }}
+                    >
+                      {developer.name}
+                    </Link>
+                  </>
+                ))
+              : "-"}
           </div>
         </div>
         <div className={styles["Game__Publisher"]}>
           <p>Publisher</p>
           <div>
-            {data.publishers.map((publisher, index) => (
-              <>
-                <span>{`${index ? ", " : ""}`}</span>
-                {publisher.name}
-              </>
-            ))}
+            {data.publishers.length
+              ? data.publishers.map((publisher, index) => (
+                  <>
+                    <span>{`${index ? ", " : ""}`}</span>
+                    {publisher.name}
+                  </>
+                ))
+              : "-"}
           </div>
         </div>
       </div>
       <div className={styles["Game__Tag"]}>
         <p>Tags</p>
         <div>
-          {data.tags.map((tag, index) => (
-            <>
-              <span>{`${index ? ", " : ""}`}</span>
-              {tag.name}
-            </>
-          ))}
+          {data.tags.length
+            ? data.tags.map((tag, index) => (
+                <>
+                  <span>{`${index ? ", " : ""}`}</span>
+                  {tag.name}
+                </>
+              ))
+            : "-"}
         </div>
       </div>
       <div className={styles["Game__Website"]}>
         <p>Website</p>
         <div>
-          <Link
-            href={data.website}
-            target="_blank"
-            style={{ textDecoration: "underline" }}
-          >
-            {data.website}
-          </Link>
+          {data.website ? (
+            <Link
+              href={data.website}
+              target="_blank"
+              style={{ textDecoration: "underline" }}
+            >
+              {data.website}
+            </Link>
+          ) : (
+            "-"
+          )}
         </div>
       </div>
     </div>
