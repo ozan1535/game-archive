@@ -1,5 +1,6 @@
 import { Card } from "@/components/Card/Card";
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
+import { PageHead } from "@/components/PageHead/PageHead";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
@@ -14,6 +15,14 @@ export default function Platform({ count, param }) {
 
   return (
     <>
+      <PageHead
+        title={"Game Archive - Genres"}
+        description={
+          "Game archive genres page. See all game genres on this page."
+        }
+        keywords={"game archive, game, genres"}
+        canAddSlug={true}
+      />
       <Card data={data} />
       {count > 20 && (
         <div className={"layoutCardPages__Pagination"}>

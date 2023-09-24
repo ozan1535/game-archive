@@ -1,4 +1,5 @@
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
+import { PageHead } from "@/components/PageHead/PageHead";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
@@ -15,6 +16,13 @@ export default function Platforms({ count }: IData) {
 
   return (
     <>
+      <PageHead
+        title={"Game Archive - Platforms"}
+        description={
+          "Game archive platforms page. See all game platforms on this page."
+        }
+        keywords={"game archive, game, platforms"}
+      />
       <SecondaryCard data={data} page="platforms" />
       {count > 20 && (
         <div className={"layoutCardPages__Pagination"}>

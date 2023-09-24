@@ -1,5 +1,6 @@
 import { Card } from "@/components/Card/Card";
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
+import { PageHead } from "@/components/PageHead/PageHead";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
@@ -14,6 +15,14 @@ export default function Platform({ count, param }) {
 
   return (
     <>
+      <PageHead
+        title={"Game Archive - Stores"}
+        description={
+          "Game archive stores page. See all game stores on this page."
+        }
+        keywords={"game archive, game, stores"}
+        canAddSlug={true}
+      />
       <Card data={data} />
       {count > 20 && (
         <div className={"layoutCardPages__Pagination"}>

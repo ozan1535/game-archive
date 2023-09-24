@@ -1,4 +1,5 @@
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
+import { PageHead } from "@/components/PageHead/PageHead";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
@@ -15,6 +16,13 @@ export default function Genres({ count }: IData) {
 
   return (
     <>
+      <PageHead
+        title={"Game Archive - Genres"}
+        description={
+          "Game archive genres page. See all game genres on this page."
+        }
+        keywords={"game archive, game, genres"}
+      />
       <SecondaryCard data={data} page="genres" />
       {count > 20 && (
         <div className={"layoutCardPages__Pagination"}>

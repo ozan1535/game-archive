@@ -4,6 +4,7 @@ import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
+import { PageHead } from "@/components/PageHead/PageHead";
 
 export default function Platform({ count, param }) {
   const data = useGetCurrentData("games", "developers", param);
@@ -14,6 +15,14 @@ export default function Platform({ count, param }) {
 
   return (
     <>
+      <PageHead
+        title={"Game Archive - Developers"}
+        description={
+          "Game archive developers page. See all game developers on this page."
+        }
+        keywords={"game archive, game, developer, game developers"}
+        canAddSlug={true}
+      />
       <Card data={data} />
       {count > 20 && (
         <div className={"layoutCardPages__Pagination"}>

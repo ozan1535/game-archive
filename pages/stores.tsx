@@ -1,4 +1,5 @@
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
+import { PageHead } from "@/components/PageHead/PageHead";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
@@ -15,6 +16,13 @@ export default function Stores({ count }: IData) {
 
   return (
     <>
+      <PageHead
+        title={"Game Archive - Stores"}
+        description={
+          "Game archive stores page. See all game stores on this page."
+        }
+        keywords={"game archive, game, stores"}
+      />
       <SecondaryCard data={data} page="stores" />
       {count > 20 && (
         <div className={"layoutCardPages__Pagination"}>

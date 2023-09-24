@@ -5,10 +5,16 @@ import { SingleGameVideo } from "@/components/SingleGame/SingleGameVideo";
 import { SingleGamePlatform } from "@/components/SingleGame/SingleGamePlatform";
 import Image from "next/image";
 import styles from "@/styles/Game.module.scss";
+import { PageHead } from "@/components/PageHead/PageHead";
 
 export default function Game({ data }) {
   return (
     <div className={styles["Game"]}>
+      <PageHead
+        title={`Game Archive - ${data.name}`}
+        description={data.description.slice(0, 50)}
+        keywords={`game archive, ${data.name}, game`}
+      />
       <div className={styles["Game__Name"]}>
         <b>{data.name}</b>
       </div>
