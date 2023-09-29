@@ -2,22 +2,26 @@ import { useSession } from "next-auth/react";
 import { deleteField, doc, setDoc, updateDoc } from "firebase/firestore";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { firestoreDatabase } from "@/services/firebase";
+import { useDialogContext } from "../Dialog/DialogContext";
 import styles from "./styles.module.scss";
 
-export function CardHeart({
-  data,
-  favouriteItems,
-  setShowDialog,
-  fetchFavouriteItems,
-}) {
+export function CardHeart({ data, favouriteItems, fetchFavouriteItems }) {
   const { data: session } = useSession();
+  const { setDialogProps } = useDialogContext();
 
   const favouriteItemRequest = async (
     option: string,
     game: Record<string, any>
   ) => {
     if (!session) {
-      setShowDialog(true);
+      setDialogProps((prev) => ({
+        ...prev,
+        showDialog: true,
+        dialogText:
+          "In order to add this game to your favourites and enjoy the website, please log in.",
+        canShowLogin: true,
+        title: "Level Up!",
+      }));
       return;
     }
     switch (option) {
