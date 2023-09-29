@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 import { CardInformationKeyAndValue } from "./CardInformationKeyAndValue";
 import { IData } from "@/layouts/LayoutCardPages/types";
 import { useGetFavourites } from "@/layouts/LayoutCardPages/hooks/useGetFavourites";
-import { Dialog } from "../Dialog/Dialog";
 import { CardHeart } from "./CardHeart";
 import { CardGenres } from "./Genres/CardGenres";
 import styles from "./styles.module.scss";
 export function Card({ data, setUpdatedData = null }: IData) {
   const { favourites, fetchFavouriteItems } = useGetFavourites();
-  const [showDialog, setShowDialog] = useState(false);
   useEffect(() => {
     if (setUpdatedData) {
       setUpdatedData(favourites);
@@ -19,13 +17,11 @@ export function Card({ data, setUpdatedData = null }: IData) {
 
   return (
     <div className="layoutCardPages__Cards">
-      {showDialog && <Dialog setShowDialog={setShowDialog} />}
       {data?.map((item, index) => (
         <div className={styles["Card"]} key={index}>
           <CardHeart
             data={item}
             favouriteItems={favourites}
-            setShowDialog={setShowDialog}
             fetchFavouriteItems={fetchFavouriteItems}
           />
           <Link
