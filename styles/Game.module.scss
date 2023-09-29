@@ -8,7 +8,8 @@
     "description"
     "info"
     "tag"
-    "website";
+    "website"
+    "comment";
   grid-template-rows: 1fr;
   grid-template-columns: 1fr;
   transition: 2s;
@@ -124,7 +125,75 @@
   margin-bottom: 1rem;
   grid-area: website;
 }
+.Game__Comment {
+  width: 40%;
+  margin-bottom: 1rem;
+  grid-area: comment;
+}
 
+.Game__Comment div {
+  width: 100%;
+}
+
+.Game__Comment div form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.Game__Comment div form textarea {
+  width: 100%;
+  text-indent: 0.25rem;
+  font-size: 1rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  resize: none;
+}
+
+.Game__Comment div form input {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgb(147, 253, 200);
+  cursor: pointer;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  color: rgb(16, 55, 99);
+  font-weight: bolder;
+}
+
+.Game__Comment div form input:hover {
+  background-color: rgb(131, 235, 183);
+}
+
+.Game__UserComments {
+  width: 100%;
+  height: auto;
+  background-color: white;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+}
+.Game__UserComments__Header {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  color: rgb(16, 55, 99);
+}
+
+.Game__UserComments__Header img {
+  border-radius: 10000px;
+  margin-right: 0.25rem;
+}
+
+.Game__UserComments__Footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0.5rem 0.25rem;
+}
+
+.Game__UserComments__Footer p:last-child {
+  color: rgb(16, 55, 99);
+}
 @media screen and (max-width: 1024px) {
   .Game__Description,
   .Game__Tag,
