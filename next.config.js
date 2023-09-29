@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["media.rawg.io", "localhost:3000"],
+    domains: ["media.rawg.io", "localhost:3000", "lh3.googleusercontent.com"],
   },
   typescript: {
     // !! WARN !!
