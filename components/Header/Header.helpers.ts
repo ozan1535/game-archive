@@ -1,5 +1,5 @@
-export function getHeaderItems() {
-  return [
+export function getHeaderItems(session) {
+  const headerItems = [
     {
       title: "Platforms",
     },
@@ -19,4 +19,12 @@ export function getHeaderItems() {
       title: "Favourites",
     },
   ];
+
+  if (session) {
+    headerItems.push({
+      title: "Profile",
+    });
+  }
+
+  return headerItems;
 }

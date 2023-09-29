@@ -10,7 +10,7 @@ import styles from "./styles.module.scss";
 export function Header() {
   const { data: session } = useSession();
   const [isMenuResponsive, setIsMenuResponsive] = useState(false);
-  const headerItems = getHeaderItems();
+  const headerItems = getHeaderItems(session);
 
   const router = useRouter();
 
