@@ -1,18 +1,48 @@
 import Link from "next/link";
+import { useEffect } from "react";
+import { useDialogContext } from "./DialogContext";
 import styles from "./styles.module.scss";
 
-export function Dialog({ setShowDialog }) {
+export function Dialog() {
+  const { dialogProps, setDialogProps } = useDialogContext();
+  const { title, dialogText, canShowLogin } = dialogProps;
+  useEffect(() => {
+    function handleEscapeKey(event) {
+      if (event.key === "Escape") {
+        setDialogProps((prev) => ({
+          ...prev,
+          showDialog: false,
+        }));
+      }
+    }
+
+    window.addEventListener("keydown", handleEscapeKey);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [setDialogProps]);
+
   return (
     <div className={styles["Dialog"]}>
       <div className={styles["Dialog__Container"]}>
         <div className={styles["Dialog__Container__Text"]}>
-          <b>Level Up!</b>
-          In order to add this item to your favourites and enjoy the website,
-          please log in.
+          <b>{title || "Level Up!"}</b>
+          {dialogText}
         </div>
         <div className={styles["Dialog__Container__Button"]}>
-          <button onClick={() => setShowDialog(false)}>Okay</button>
-          <Link href="/login">Log in</Link>
+          <button
+            onClick={() => {
+              setDialogProps((prev) => ({
+                ...prev,
+                showDialog: false,
+              }));
+            }}
+          >
+            Okay
+          </button>
+          {canShowLogin && <Link href="/login">Log in</Link>}
         </div>
       </div>
     </div>

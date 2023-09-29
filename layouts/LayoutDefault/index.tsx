@@ -1,12 +1,15 @@
+import { DialogContextProvider } from "@/components/Dialog/DialogContext";
 import { Header } from "@/components/Header/Header";
 
 export function LayoutDefault(props: any) {
   const { children } = props;
   return (
-    <div>
-      <Header />
-      <div>{children}</div>
-    </div>
+    <DialogContextProvider>
+      <div>
+        <Header />
+        <div>{children}</div>
+      </div>
+    </DialogContextProvider>
   );
 }
 
