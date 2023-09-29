@@ -1,13 +1,87 @@
+import { useRouter } from "next/router";
+import Image from "next/image";
+import { MouseEventHandler, useState } from "react";
+import useSWR from "swr";
 import Link from "next/link";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { getLayoutDefault } from "@/layouts/LayoutDefault";
 import { SingleGameVideo } from "@/components/SingleGame/SingleGameVideo";
-import { SingleGamePlatform } from "@/components/SingleGame/SingleGamePlatform";
-import Image from "next/image";
-import styles from "@/styles/Game.module.scss";
 import { PageHead } from "@/components/PageHead/PageHead";
+import { SingleGamePlatform } from "@/components/SingleGame/SingleGamePlatform";
+import { Comments } from "@/components/Comments/Comments";
+import { useDialogContext } from "@/components/Dialog/DialogContext";
+import styles from "@/styles/Game.module.scss";
 
 export default function Game({ data }) {
+  const { setDialogProps } = useDialogContext();
+  const [commentValue, setCommentValue] = useState("");
+
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const { data: dataComment, mutate } = useSWR(
+    `/api/firebase?slug=${router.query.slug}`
+  );
+
+  const handleCommentRequest = async (
+    e: MouseEventHandler<HTMLInputElement>
+  ) => {
+    e.preventDefault();
+
+    if (!session) {
+      setDialogProps((prev) => ({
+        ...prev,
+        showDialog: true,
+        dialogText:
+          "In order to comment to this game and enjoy the website, please log in.",
+        canShowLogin: true,
+        title: "Level Up!",
+      }));
+      return;
+    }
+
+    const requestData = {
+      userEmail: session.user?.email,
+      comment: commentValue,
+      slug: data.slug,
+      gameName: data.name,
+      userName: session.user?.name,
+      userImage: session.user?.image,
+    };
+
+    if (commentValue !== "") {
+      fetch("/api/firebase", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      }).then((response) => {
+        if (response.ok) {
+          setCommentValue("");
+          mutate();
+        } else {
+          setDialogProps((prev) => ({
+            ...prev,
+            showDialog: true,
+            dialogText:
+              "Oh no! Our servers are currently having a game of hide-and-seek. Please try again later.",
+            canShowLogin: false,
+            title: "Error",
+          }));
+        }
+      });
+    } else {
+      setDialogProps((prev) => ({
+        ...prev,
+        showDialog: true,
+        dialogText: "Please write your experience and try again.",
+        canShowLogin: false,
+        title: "Warning",
+      }));
+    }
+  };
+
   return (
     <div className={styles["Game"]}>
       <PageHead
@@ -132,6 +206,29 @@ export default function Game({ data }) {
           )}
         </div>
       </div>
+      <div className={styles["Game__Comment"]}>
+        <p>Comments</p>
+        <div>
+          <Comments
+            defaultText={"There is not any comment for this game."}
+            dataComment={dataComment}
+            canEdit={false}
+          />
+          <form action="">
+            <textarea
+              rows={6}
+              placeholder="Share your experience"
+              onChange={(e) => setCommentValue(e.target.value)}
+              value={commentValue}
+            />
+            <input
+              type="submit"
+              value="SHARE"
+              onClick={(e) => handleCommentRequest(e)}
+            />
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
@@ -149,10 +246,16 @@ export async function getServerSideProps(context) {
   );
   const data = await res.json();
 
+  const resComment = await fetch(
+    `${process.env.SERVER_LINK as string}/api/firebase?slug=${slug}`
+  );
+  const dataComment = await resComment.json();
+
   return {
     props: {
       session,
       data,
+      dataComment,
     },
   };
 }
