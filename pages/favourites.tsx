@@ -1,14 +1,15 @@
+import { doc, getDoc } from "firebase/firestore";
+import { getSession } from "next-auth/react";
 import { useState } from "react";
 import { Card } from "@/components/Card/Card";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
-import { Pagination } from "@/components/Pagination/Pagination";
-import { useGetFavourites } from "@/layouts/LayoutCardPages/hooks/useGetFavourites";
 import { IData } from "@/layouts/LayoutCardPages/types";
-import styles from "@/styles/Favourites.module.scss";
+import { Pagination } from "@/components/Pagination/Pagination";
 import { PageHead } from "@/components/PageHead/PageHead";
+import { firestoreDatabase } from "@/services/firebase";
+import styles from "@/styles/Favourites.module.scss";
 
-export default function Favourites() {
-  const { favourites } = useGetFavourites();
+export default function Favourites({ favourites }) {
   const [updatedData, setUpdatedData] = useState<IData[]>([]);
 
   if (!favourites && !updatedData) {
@@ -58,3 +59,34 @@ export default function Favourites() {
 }
 
 Favourites.getLayout = getLayoutCardPages;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  const docRef = doc(
+    firestoreDatabase,
+    "favourites",
+    `${session?.user?.email}`
+  );
+
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const favourites = Object.values(docSnap.data()).sort((a, b) =>
+      a.gameName.localeCompare(b.gameName)
+    );
+
+    return {
+      props: {
+        session,
+        favourites,
+      },
+    };
+  } else {
+    return {
+      props: {
+        session,
+      },
+    };
+  }
+}
