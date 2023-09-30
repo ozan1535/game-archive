@@ -29,7 +29,7 @@ export function Dialog() {
       <div className={styles["Dialog__Container"]}>
         <div className={styles["Dialog__Container__Text"]}>
           <b>{title || "Level Up!"}</b>
-          <span>{dialogText}</span>
+          <span style={{ color: "black" }}>{dialogText}</span>
         </div>
         <div className={styles["Dialog__Container__Button"]}>
           <button

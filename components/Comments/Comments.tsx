@@ -75,7 +75,7 @@ export function Comments({
                 )}
               </div>
               <div className={styles["Game__UserComments__Footer"]}>
-                <p>{comment.comment} </p>
+                <p style={{ color: "black" }}>{comment.comment} </p>
                 <p>
                   {new Date(
                     comment.timestamp?.seconds * 1000 +
