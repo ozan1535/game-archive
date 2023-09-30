@@ -1,12 +1,12 @@
-import { firestoreDatabase } from "@/services/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
-import { IData } from "../types";
+import { IFavourite } from "@/layouts/LayoutDefault/types";
+import { firestoreDatabase } from "@/services/firebase";
 
 export function useGetFavourites() {
   const { data: session } = useSession();
-  const [favourites, setFavourites] = useState<IData[]>();
+  const [favourites, setFavourites] = useState<IFavourite[]>();
   const fetchFavouriteItems = useCallback(async () => {
     const docRef = doc(
       firestoreDatabase,

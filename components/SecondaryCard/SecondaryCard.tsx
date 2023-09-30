@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { IData } from "@/layouts/LayoutCardPages/types";
-import styles from "./styles.module.scss";
 import Link from "next/link";
+import { ISecondaryCardProps } from "@/layouts/LayoutDefault/types";
+import styles from "./styles.module.scss";
 
-export function SecondaryCard({ data, page }: IData) {
+export function SecondaryCard({ data, page }: ISecondaryCardProps) {
   return (
     <div className="layoutCardPages__Cards">
       {data?.map((item, index) => (

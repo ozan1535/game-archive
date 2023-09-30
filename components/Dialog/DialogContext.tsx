@@ -6,8 +6,9 @@ import {
   useState,
 } from "react";
 import { Dialog } from "./Dialog";
+import { IDialogContextProps, IDialogProps } from "./Dialog.types";
 
-let dialogContextStates: Context<IDeleteDialogContextProps>;
+let dialogContextStates: Context<IDialogContextProps>;
 
 const dialogProps = {
   title: "Level Up!",
@@ -17,17 +18,16 @@ const dialogProps = {
   canShowLogin: true,
 };
 
-const { Provider } = (dialogContextStates =
-  createContext<IDeleteDialogContextProps>({
-    dialogProps,
-    setDialogProps: () => dialogProps,
-  }));
+const { Provider } = (dialogContextStates = createContext<IDialogContextProps>({
+  dialogProps,
+  setDialogProps: () => dialogProps,
+}));
 
-export const useDialogContext: () => IDeleteDialogContextProps = () =>
+export const useDialogContext: () => IDialogContextProps = () =>
   useContext(dialogContextStates);
 
 export function DialogContextProvider(props: { children: ReactElement }) {
-  const [dialogProps, setDialogProps] = useState<IdialogProps>({
+  const [dialogProps, setDialogProps] = useState<IDialogProps>({
     title: "Level Up!",
     showDialog: false,
     dialogText:

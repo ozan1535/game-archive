@@ -1,18 +1,23 @@
+import { GetServerSideProps } from "next";
 import { doc, getDoc } from "firebase/firestore";
 import { getSession } from "next-auth/react";
 import { useState } from "react";
 import { Card } from "@/components/Card/Card";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
-import { IData } from "@/layouts/LayoutCardPages/types";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { PageHead } from "@/components/PageHead/PageHead";
 import { firestoreDatabase } from "@/services/firebase";
+import { IFavourite } from "@/layouts/LayoutDefault/types";
 import styles from "@/styles/Favourites.module.scss";
 
-export default function Favourites({ favourites }) {
-  const [updatedData, setUpdatedData] = useState<IData[]>([]);
+export default function Favourites({
+  favourites,
+}: {
+  favourites: IFavourite[];
+}) {
+  const [updatedData, setUpdatedData] = useState<IFavourite[]>([]);
 
-  if (!favourites && !updatedData) {
+  if (!favourites.length && !updatedData.length) {
     return (
       <div className={styles["Favourites"]}>
         <PageHead
@@ -60,7 +65,7 @@ export default function Favourites({ favourites }) {
 
 Favourites.getLayout = getLayoutCardPages;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
 
   const docRef = doc(
@@ -89,4 +94,4 @@ export async function getServerSideProps(context) {
       },
     };
   }
-}
+};

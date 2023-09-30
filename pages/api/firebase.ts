@@ -13,20 +13,43 @@ import {
 import type { NextApiRequest, NextApiResponse } from "next";
 import { firestoreDatabase } from "@/services/firebase";
 
+interface IAddComment {
+  comment: string;
+  gameName: string;
+  slug: string;
+  userEmail: string;
+  userImage: string;
+  userName: string;
+}
+
+export interface IUserCommentData extends IAddComment {
+  timestamp: string;
+  id?: string;
+}
+
+interface IDeleteComment {
+  gameSlug: string;
+  commentId: string;
+}
+
+interface IUpdateComment extends IDeleteComment {
+  comment: string;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
   const getComment = async () => {
     if (req.query.slug === "getAllUserComments") {
-      const userCommentData = [];
+      const userCommentData: IUserCommentData[] = [];
       const querySnapshot = await getDocs(
         collection(firestoreDatabase, "comments")
       );
       querySnapshot.forEach((doc) => {
         Object.entries(doc.data()).forEach(([id, item]) => {
           if (item.userEmail === req.query.mail) {
-            const newItem = { ...item, id };
+            const newItem: IUserCommentData = { ...item, id };
             userCommentData.push(newItem);
           }
         });
@@ -49,7 +72,7 @@ export default async function handler(
     }
   };
 
-  const addComment = async (body) => {
+  const addComment = async (body: IAddComment) => {
     try {
       await setDoc(
         doc(firestoreDatabase, "comments", `${body.slug}`),
@@ -64,7 +87,7 @@ export default async function handler(
     }
   };
 
-  const updateComment = async (body) => {
+  const updateComment = async (body: IUpdateComment) => {
     try {
       const commentRef = doc(firestoreDatabase, "comments", body.gameSlug);
       await updateDoc(commentRef, {
@@ -76,7 +99,7 @@ export default async function handler(
     }
   };
 
-  const deleteComment = async (body) => {
+  const deleteComment = async (body: IDeleteComment) => {
     try {
       const frankDocRef = doc(firestoreDatabase, "comments", body.gameSlug);
       await updateDoc(frankDocRef, {

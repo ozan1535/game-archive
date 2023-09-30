@@ -7,7 +7,7 @@ export function Dialog() {
   const { dialogProps, setDialogProps } = useDialogContext();
   const { title, dialogText, canShowLogin } = dialogProps;
   useEffect(() => {
-    function handleEscapeKey(event) {
+    function handleEscapeKey(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setDialogProps((prev) => ({
           ...prev,

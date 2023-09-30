@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { CardInformationKeyAndValue } from "../CardInformationKeyAndValue";
+import { IGenre } from "@/layouts/LayoutDefault/types";
 import styles from "@/components/Card/styles.module.scss";
 
-export function CardGenres({ item }) {
+export function CardGenres({ genres }: { genres: IGenre[] }) {
   return (
     <div className={styles["Card__Information__Genres"]}>
       <div>Genres:</div>
@@ -13,9 +14,9 @@ export function CardGenres({ item }) {
           justifyContent: "flex-end",
         }}
       >
-        {item.genres.length ? (
+        {genres.length ? (
           <>
-            {item.genres?.map((genre, index) => (
+            {genres?.map((genre, index) => (
               <div
                 key={genre.name}
                 style={{

@@ -3,9 +3,14 @@ import { deleteField, doc, setDoc, updateDoc } from "firebase/firestore";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { firestoreDatabase } from "@/services/firebase";
 import { useDialogContext } from "../Dialog/DialogContext";
+import { ICardHeart } from "@/layouts/LayoutDefault/types";
 import styles from "./styles.module.scss";
 
-export function CardHeart({ data, favouriteItems, fetchFavouriteItems }) {
+export function CardHeart({
+  data,
+  favouriteItems,
+  fetchFavouriteItems,
+}: ICardHeart) {
   const { data: session } = useSession();
   const { setDialogProps } = useDialogContext();
 

@@ -4,7 +4,7 @@ import useSWR from "swr";
 export function useGetCurrentData(
   slug: string,
   page: undefined | string = undefined,
-  param: undefined | number = undefined
+  param: undefined | string | number = undefined
 ) {
   const router = useRouter();
 

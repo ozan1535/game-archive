@@ -1,4 +1,4 @@
 export interface ICardInformationKeyAndValueProps {
-  name: string;
+  name: string | number;
   color?: string;
 }

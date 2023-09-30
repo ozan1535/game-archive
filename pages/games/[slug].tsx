@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 import useSWR from "swr";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { getSession, useSession } from "next-auth/react";
 import { getLayoutDefault } from "@/layouts/LayoutDefault";
@@ -10,9 +11,10 @@ import { PageHead } from "@/components/PageHead/PageHead";
 import { SingleGamePlatform } from "@/components/SingleGame/SingleGamePlatform";
 import { Comments } from "@/components/Comments/Comments";
 import { useDialogContext } from "@/components/Dialog/DialogContext";
+import { IGameInfo } from "@/layouts/LayoutDefault/types";
 import styles from "@/styles/Game.module.scss";
 
-export default function Game({ data }) {
+export default function Game({ data }: { data: IGameInfo }) {
   const { setDialogProps } = useDialogContext();
   const [commentValue, setCommentValue] = useState("");
 
@@ -24,7 +26,7 @@ export default function Game({ data }) {
   );
 
   const handleCommentRequest = async (
-    e: MouseEventHandler<HTMLInputElement>
+    e: React.MouseEvent<HTMLInputElement>
   ) => {
     e.preventDefault();
 
@@ -94,7 +96,7 @@ export default function Game({ data }) {
       </div>
 
       {data.clip?.clip ? (
-        <SingleGameVideo data={data} />
+        <SingleGameVideo src={data.clip?.clip} />
       ) : (
         <Image
           alt="image"
@@ -235,7 +237,7 @@ export default function Game({ data }) {
 
 Game.getLayout = getLayoutDefault;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
 
   const { slug } = context.query; // get the slug from the query parameters
@@ -258,4 +260,4 @@ export async function getServerSideProps(context) {
       dataComment,
     },
   };
-}
+};

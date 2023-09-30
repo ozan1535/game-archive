@@ -1,12 +1,14 @@
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 import { Card } from "@/components/Card/Card";
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
 import { PageHead } from "@/components/PageHead/PageHead";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
-import { getSession } from "next-auth/react";
+import { ICountWithParam } from "@/layouts/LayoutDefault/types";
 
-export default function Platform({ count, param }) {
+export default function Platform({ count, param }: ICountWithParam) {
   const data = useGetCurrentData("games", "platforms", param);
 
   if (data?.detail) {
@@ -35,13 +37,13 @@ export default function Platform({ count, param }) {
 
 Platform.getLayout = getLayoutCardPages;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
 
   // Fetch the data for the specified slug
   const res = await fetch(
     `https://api.rawg.io/api/games?key=${process.env.API_KEY}&platforms=${
-      context?.params?.slug[0]
+      (context?.params?.slug as string)[0]
     }&page_size=20&page=${context.query.page || 1}`
   );
   const data = await res.json();
@@ -51,7 +53,7 @@ export async function getServerSideProps(context) {
       session,
       data: data.results || data,
       count: data.count || 0,
-      param: context?.params?.slug[0],
+      param: (context?.params?.slug as string)[0],
     },
   };
-}
+};

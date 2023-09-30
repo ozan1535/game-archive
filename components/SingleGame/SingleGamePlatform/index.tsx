@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { ISingleGamePlatform } from "./SingleGamePlatform.types";
 import styles from "@/styles/Game.module.scss";
 
-export function SingleGamePlatform({ data }) {
+export function SingleGamePlatform({ data }: { data: ISingleGamePlatform[] }) {
   return (
     <div className={styles["Game__Platforms"]}>
       <p> Platforms</p>

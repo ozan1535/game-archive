@@ -1,8 +1,9 @@
-import { signIn, getSession, useSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
+import { signIn, getSession } from "next-auth/react";
 import Image from "next/image";
 import { getLayoutDefault } from "@/layouts/LayoutDefault";
-import styles from "@/styles/Login.module.scss";
 import { PageHead } from "@/components/PageHead/PageHead";
+import styles from "@/styles/Login.module.scss";
 
 export default function Login() {
   return (
@@ -38,7 +39,7 @@ export default function Login() {
 
 Login.getLayout = getLayoutDefault;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
 
   if (session) {
@@ -53,4 +54,4 @@ export async function getServerSideProps(context) {
   return {
     props: { session },
   };
-}
+};

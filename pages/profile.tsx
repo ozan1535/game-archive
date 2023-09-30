@@ -1,4 +1,5 @@
 import { getSession, useSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
 import useSWR from "swr";
 import { getLayoutDefault } from "@/layouts/LayoutDefault";
 import { PageHead } from "@/components/PageHead/PageHead";
@@ -38,7 +39,7 @@ export default function Profile() {
 
 Profile.getLayout = getLayoutDefault;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
 
   const resComment = await fetch(
@@ -60,4 +61,4 @@ export async function getServerSideProps(context) {
   return {
     props: { session, dataComment },
   };
-}
+};

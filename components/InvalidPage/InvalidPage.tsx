@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styles from "./styles.module.scss";
 
-export function InvalidPage({ detail }) {
+export function InvalidPage({ detail }: { detail: string }) {
   const router = useRouter();
 
   return (

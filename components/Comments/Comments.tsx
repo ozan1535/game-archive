@@ -3,15 +3,22 @@ import Link from "next/link";
 import { useState } from "react";
 import { MdModeEditOutline, MdDelete } from "react-icons/md";
 import { RequestDialog } from "../Dialog/RequestDialog";
+import { IComment, ICommentsFail } from "@/layouts/LayoutDefault/types";
+import { IUserCommentData } from "@/pages/api/firebase";
 import styles from "./Comments.module.scss";
 
-export function Comments({ defaultText, dataComment, canEdit, mutate }) {
+export function Comments({
+  defaultText,
+  dataComment,
+  canEdit,
+  mutate,
+}: IComment) {
   const [showDialog, setShowDialog] = useState(false);
-  const [comment, setComment] = useState();
+  const [comment, setComment] = useState<IUserCommentData>();
   const [requestType, setRequestType] = useState("edit");
   if (
     !dataComment ||
-    dataComment.success === false ||
+    (dataComment as ICommentsFail).success === false ||
     !Object.values(dataComment).length
   ) {
     return (
@@ -19,7 +26,7 @@ export function Comments({ defaultText, dataComment, canEdit, mutate }) {
     );
   }
 
-  const handleIconClick = (comment, type) => {
+  const handleIconClick = (comment: IUserCommentData, type: string) => {
     setComment(comment);
     setRequestType(type);
     setShowDialog(true);
@@ -35,7 +42,8 @@ export function Comments({ defaultText, dataComment, canEdit, mutate }) {
           mutate={mutate}
         />
       )}
-      {dataComment.success === false || !Object.values(dataComment).length ? (
+      {(dataComment as ICommentsFail).success === false ||
+      !Object.values(dataComment).length ? (
         <p style={{ color: "#9d9fbc", margin: "0.25rem 0" }}>{defaultText}</p>
       ) : (
         Object.values(dataComment)

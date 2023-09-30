@@ -27,12 +27,12 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         value={{
           fallback: {
             [`/api/games/${router.query.page || 1}/`]: pageProps.data,
-            [`/api/server/users/${session?.user?.user?.id}`]: pageProps.data,
             [`/api/platforms/${router.query.page || 1}/`]: pageProps.data,
             [`/api/genres/${router.query.page || 1}/`]: pageProps.data,
             [`/api/stores/${router.query.page || 1}/`]: pageProps.data,
             [`/api/firebase?slug=${router.query.slug}`]: pageProps.dataComment,
-            [`/api/firebase?slug=getAllUserComments&mail=${session?.user?.email}`]: pageProps.dataComment,
+            [`/api/firebase?slug=getAllUserComments&mail=${session?.user?.email}`]:
+              pageProps.dataComment,
             [`/api/developers/${router.query.page || 1}/`]: pageProps.data,
             [`/api/games/${router.query.page || 1}/platforms/${
               pageProps.param

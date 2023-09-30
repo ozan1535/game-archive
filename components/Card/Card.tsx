@@ -1,17 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CardInformationKeyAndValue } from "./CardInformationKeyAndValue";
-import { IData } from "@/layouts/LayoutCardPages/types";
 import { useGetFavourites } from "@/layouts/LayoutCardPages/hooks/useGetFavourites";
 import { CardHeart } from "./CardHeart";
 import { CardGenres } from "./Genres/CardGenres";
+import { ICardProps, IFavourite } from "@/layouts/LayoutDefault/types";
 import styles from "./styles.module.scss";
-export function Card({ data, setUpdatedData = null }: IData) {
+
+export function Card({ data, setUpdatedData = null }: ICardProps) {
   const { favourites, fetchFavouriteItems } = useGetFavourites();
   useEffect(() => {
     if (setUpdatedData) {
-      setUpdatedData(favourites);
+      setUpdatedData(favourites as IFavourite[]);
     }
   }, [favourites, setUpdatedData]);
 
@@ -52,7 +53,7 @@ export function Card({ data, setUpdatedData = null }: IData) {
                 color="white"
               />
             </div>
-            <CardGenres item={item} />
+            <CardGenres genres={item.genres} />
             <div className={styles["Card__Information__Rating"]}>
               <div>Rating:</div>
               <CardInformationKeyAndValue

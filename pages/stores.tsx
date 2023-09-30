@@ -1,13 +1,14 @@
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
 import { PageHead } from "@/components/PageHead/PageHead";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { SecondaryCard } from "@/components/SecondaryCard/SecondaryCard";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
-import { IData } from "@/layouts/LayoutCardPages/types";
-import { getSession } from "next-auth/react";
+import { ICount } from "@/layouts/LayoutDefault/types";
 
-export default function Stores({ count }: IData) {
+export default function Stores({ count }: ICount) {
   const data = useGetCurrentData("stores");
 
   if (data?.detail) {
@@ -35,7 +36,7 @@ export default function Stores({ count }: IData) {
 
 Stores.getLayout = getLayoutCardPages;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
 
   const res = await fetch(
@@ -50,4 +51,4 @@ export async function getServerSideProps(context) {
       count: data.count || 0,
     },
   };
-}
+};

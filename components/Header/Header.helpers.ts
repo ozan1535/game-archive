@@ -1,4 +1,6 @@
-export function getHeaderItems(session) {
+import { Session } from "next-auth";
+
+export function getHeaderItems(session: Session | null) {
   const headerItems = [
     {
       title: "Platforms",

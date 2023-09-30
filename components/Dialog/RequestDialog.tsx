@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
-import { Dialog } from "./Dialog";
 import { useDialogContext } from "./DialogContext";
+import { IRequestDialogProps } from "./RequestDialog.types";
 import styles from "./styles.module.scss";
 
-export function RequestDialog({ comment, setShowDialog, requestType, mutate }) {
+export function RequestDialog({
+  comment,
+  setShowDialog,
+  requestType,
+  mutate,
+}: IRequestDialogProps) {
   const { setDialogProps } = useDialogContext();
   const [updatedCommentText, setUpdatedCommentText] = useState("");
   useEffect(() => {
-    function handleEscapeKey(event) {
+    function handleEscapeKey(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setShowDialog(false);
       }
@@ -27,8 +32,8 @@ export function RequestDialog({ comment, setShowDialog, requestType, mutate }) {
         method: "PUT",
         body: JSON.stringify({
           comment: updatedCommentText,
-          commentId: comment.id,
-          gameSlug: comment.slug,
+          commentId: comment?.id,
+          gameSlug: comment?.slug,
         }),
       }).then((res) => {
         if (!res.ok) {
@@ -46,8 +51,8 @@ export function RequestDialog({ comment, setShowDialog, requestType, mutate }) {
       fetch("/api/firebase", {
         method: "DELETE",
         body: JSON.stringify({
-          commentId: comment.id,
-          gameSlug: comment.slug,
+          commentId: comment?.id,
+          gameSlug: comment?.slug,
         }),
       }).then((res) => {
         if (!res.ok) {
@@ -62,7 +67,9 @@ export function RequestDialog({ comment, setShowDialog, requestType, mutate }) {
         }
       });
     }
-    mutate();
+    if (mutate) {
+      mutate();
+    }
     setShowDialog(false);
   };
 
@@ -76,7 +83,7 @@ export function RequestDialog({ comment, setShowDialog, requestType, mutate }) {
               rows={6}
               placeholder="Share your experience"
               onChange={(e) => setUpdatedCommentText(e.target.value)}
-              defaultValue={comment.comment}
+              defaultValue={comment?.comment}
             />
           ) : (
             "Are you sure you want to delete your comment?"

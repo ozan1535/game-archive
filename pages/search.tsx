@@ -1,12 +1,11 @@
-import Head from "next/head";
 import { useState } from "react";
 import { Card } from "@/components/Card/Card";
 import { AiOutlineSearch } from "react-icons/ai";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
-import styles from "@/styles/Search.module.scss";
 import { PageHead } from "@/components/PageHead/PageHead";
+import styles from "@/styles/Search.module.scss";
 
 export default function Search() {
   const [storeText, setStoreText] = useState("");

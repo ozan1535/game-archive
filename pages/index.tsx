@@ -1,14 +1,14 @@
+import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import Head from "next/head";
 import { Card } from "@/components/Card/Card";
 import { getLayoutCardPages } from "@/layouts/LayoutCardPages";
-import { IData } from "@/layouts/LayoutCardPages/types";
 import { Pagination } from "@/components/Pagination/Pagination";
 import { useGetCurrentData } from "@/layouts/LayoutCardPages/hooks/useGetCurrentData";
 import { InvalidPage } from "@/components/InvalidPage/InvalidPage";
 import { PageHead } from "@/components/PageHead/PageHead";
+import { ICount } from "@/layouts/LayoutDefault/types";
 
-export default function Home({ count }: IData) {
+export default function Home({ count }: ICount) {
   const data = useGetCurrentData("games");
 
   if (data?.detail) {
@@ -35,9 +35,8 @@ export default function Home({ count }: IData) {
 
 Home.getLayout = getLayoutCardPages;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
-  // check page=44283 after deploy
   const res = await fetch(
     `https://api.rawg.io/api/games?key=${
       process.env.API_KEY
@@ -52,4 +51,4 @@ export async function getServerSideProps(context) {
       count: data.count || 0,
     },
   };
-}
+};
