@@ -86,7 +86,9 @@ export function RequestDialog({
               defaultValue={comment?.comment}
             />
           ) : (
-            "Are you sure you want to delete your comment?"
+            <span style={{ color: "black" }}>
+              Are you sure you want to delete your comment?
+            </span>
           )}
         </div>
         <div className={styles["Dialog__Container__Button"]}>
