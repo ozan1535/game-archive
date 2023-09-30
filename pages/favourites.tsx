@@ -27,7 +27,7 @@ export default function Favourites({
           }
           keywords={"game archive, game, favourites, user"}
         />
-        <p> You don&apos;t have any favourite game</p>
+        <p style={{ color: "black" }}>You don&apos;t have any favourite game</p>
       </div>
     );
   }
