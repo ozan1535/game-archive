@@ -1,6 +1,6 @@
 .SecondaryCard {
   position: relative;
-  width: 350px;
+  width: 20.5rem;
   height: 350px;
   display: flex;
   justify-content: center;
@@ -31,4 +31,12 @@
   width: 400px;
   height: 400px;
   opacity: 0.4;
+}
+
+@media screen and (max-width: 350px) {
+  .SecondaryCard,
+  .SecondaryCard img {
+    width: 16rem;
+    transition: 300ms;
+  }
 }

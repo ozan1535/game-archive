@@ -54,14 +54,14 @@
 
 .Game__Description {
   grid-area: description;
-  width: 40%;
+  width: 50rem;
   text-align: justify;
   margin: 1rem 0;
   color: white;
 }
 
 .Game__Info {
-  width: 40%;
+  width: 50rem;
   display: grid;
   grid-area: info;
   grid-template-areas:
@@ -91,11 +91,13 @@
 .Game__Publisher {
   text-align: end;
 }
+
 .Game__Platforms {
   grid-area: platforms;
 }
 .Game__Metascore {
   grid-area: metascore;
+  align-self: flex-start;
 }
 .Game__Genres {
   grid-area: genres;
@@ -111,7 +113,7 @@
 }
 
 .Game__Tag {
-  width: 40%;
+  width: 50rem;
   margin-bottom: 1rem;
   grid-area: tag;
 }
@@ -121,12 +123,12 @@
   color: white;
 }
 .Game__Website {
-  width: 40%;
+  width: 50rem;
   margin-bottom: 1rem;
   grid-area: website;
 }
 .Game__Comment {
-  width: 40%;
+  width: 50rem;
   margin-bottom: 1rem;
   grid-area: comment;
 }
@@ -194,11 +196,12 @@
 .Game__UserComments__Footer p:last-child {
   color: rgb(16, 55, 99);
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 850px) {
   .Game__Description,
   .Game__Tag,
   .Game__Website,
-  .Game__Info {
+  .Game__Info,
+  .Game__Comment {
     width: 90%;
   }
 }

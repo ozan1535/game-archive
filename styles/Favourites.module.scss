@@ -6,9 +6,15 @@
   align-items: center;
 }
 
-.Favourites p,
-.Favourites a {
+.Favourites p {
   background-color: white;
   padding: 1rem;
   border-radius: 5rem;
+}
+
+@media screen and (max-width: 330px) {
+  .Favourites p {
+    font-size: 0.75rem;
+    transition: 300ms;
+  }
 }

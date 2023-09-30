@@ -17,7 +17,7 @@ export default function Favourites({
 }) {
   const [updatedData, setUpdatedData] = useState<IFavourite[]>([]);
 
-  if (!favourites.length && !updatedData.length) {
+  if (!favourites?.length && !updatedData?.length) {
     return (
       <div className={styles["Favourites"]}>
         <PageHead

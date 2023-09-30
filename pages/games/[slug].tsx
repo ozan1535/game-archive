@@ -12,6 +12,7 @@ import { SingleGamePlatform } from "@/components/SingleGame/SingleGamePlatform";
 import { Comments } from "@/components/Comments/Comments";
 import { useDialogContext } from "@/components/Dialog/DialogContext";
 import { IGameInfo } from "@/layouts/LayoutDefault/types";
+import { GameInformation } from "@/components/GameInformation/GameInformation";
 import styles from "@/styles/Game.module.scss";
 
 export default function Game({ data }: { data: IGameInfo }) {
@@ -125,21 +126,7 @@ export default function Game({ data }: { data: IGameInfo }) {
         </div>
         <div className={styles["Game__Genres"]}>
           <p> Genre</p>
-          <div>
-            {data.genres.length
-              ? data.genres.map((genre, index) => (
-                  <>
-                    <span>{`${index ? ", " : ""}`}</span>
-                    <Link
-                      href={`/genres/${genre.id}/${genre.slug}`}
-                      style={{ textDecoration: "underline" }}
-                    >
-                      {genre.name}
-                    </Link>
-                  </>
-                ))
-              : "-"}
-          </div>
+          <GameInformation items={data.genres} hasLink={true} />
         </div>
         <div className={styles["Game__Release"]}>
           <p>Release date</p>
@@ -149,48 +136,16 @@ export default function Game({ data }: { data: IGameInfo }) {
         </div>
         <div className={styles["Game__Developer"]}>
           <p>Developer</p>
-          <div>
-            {data.developers.length
-              ? data.developers.map((developer, index) => (
-                  <>
-                    <span>{`${index ? ", " : ""}`}</span>
-                    <Link
-                      href={`/developers/${developer.id}/${developer.slug}`}
-                      style={{ textDecoration: "underline" }}
-                    >
-                      {developer.name}
-                    </Link>
-                  </>
-                ))
-              : "-"}
-          </div>
+          <GameInformation items={data.developers} hasLink={true} />
         </div>
         <div className={styles["Game__Publisher"]}>
           <p>Publisher</p>
-          <div>
-            {data.publishers.length
-              ? data.publishers.map((publisher, index) => (
-                  <>
-                    <span>{`${index ? ", " : ""}`}</span>
-                    {publisher.name}
-                  </>
-                ))
-              : "-"}
-          </div>
+          <GameInformation items={data.publishers} hasLink={false} />
         </div>
       </div>
       <div className={styles["Game__Tag"]}>
         <p>Tags</p>
-        <div>
-          {data.tags.length
-            ? data.tags.map((tag, index) => (
-                <>
-                  <span>{`${index ? ", " : ""}`}</span>
-                  {tag.name}
-                </>
-              ))
-            : "-"}
-        </div>
+        <GameInformation items={data.tags} hasLink={false} />
       </div>
       <div className={styles["Game__Website"]}>
         <p>Website</p>

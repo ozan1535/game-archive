@@ -35,7 +35,6 @@
   padding: 0 0.75rem;
 }
 
-
 .Card__Information__Name {
   grid-area: gameName;
   display: flex;
@@ -97,5 +96,14 @@
 @media screen and (max-width: 1024px) {
   .Card__Heart {
     font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .Card,
+  .Card a img,
+  .Card__Information {
+    width: 16rem;
+    transition: 300ms;
   }
 }
