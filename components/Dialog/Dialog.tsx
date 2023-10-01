@@ -24,6 +24,13 @@ export function Dialog() {
     };
   }, [setDialogProps]);
 
+  const handleCloseDialog = () => {
+    setDialogProps((prev) => ({
+      ...prev,
+      showDialog: false,
+    }));
+  };
+
   return (
     <div className={styles["Dialog"]}>
       <div className={styles["Dialog__Container"]}>
@@ -32,17 +39,12 @@ export function Dialog() {
           <span style={{ color: "black" }}>{dialogText}</span>
         </div>
         <div className={styles["Dialog__Container__Button"]}>
-          <button
-            onClick={() => {
-              setDialogProps((prev) => ({
-                ...prev,
-                showDialog: false,
-              }));
-            }}
-          >
-            Okay
-          </button>
-          {canShowLogin && <Link href="/login">Log in</Link>}
+          <button onClick={handleCloseDialog}>Okay</button>
+          {canShowLogin && (
+            <Link href="/login" onClick={handleCloseDialog}>
+              Log in
+            </Link>
+          )}
         </div>
       </div>
     </div>
