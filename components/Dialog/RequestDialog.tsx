@@ -67,9 +67,9 @@ export function RequestDialog({
         }
       });
     }
-    if (mutate) {
-      mutate();
-    }
+
+    mutate();
+
     setShowDialog(false);
   };
 
