@@ -45,6 +45,8 @@ export function RequestDialog({
             canShowLogin: false,
             title: "Error",
           }));
+        } else {
+          mutate();
         }
       });
     } else {
@@ -64,11 +66,11 @@ export function RequestDialog({
             canShowLogin: false,
             title: "Error",
           }));
+        } else {
+          mutate();
         }
       });
     }
-
-    mutate();
 
     setShowDialog(false);
   };
